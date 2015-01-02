@@ -58,7 +58,7 @@ def start():
 <div id="sidebar-wrapper">
   <ul class="sidebar-nav">
     <li class="sidebar-brand">
-      <a href="#">"""+Name+"""</a>
+      <a href="index.html">"""+Name+"""</a>
     </li>"""
         c=c+f
     return c
@@ -83,13 +83,16 @@ def navigation():
             x='nav class="nav nav-pills nav-stacked"'
         b=raw_input("What is the name of first item: ")
         b=str(b)
-        f='<ul '+str(x)+'>\n  <li class="active"><a href="#">'+b+'</a></li>'
+        f='<ul '+str(x)+'>\n  <li class="active"><a href="'+b+'.html">'+b+'</a></li>'
+        skeleton(b)
         if z is not 1:
             for i in range(1,z):
                 b=raw_input("Please enter the name of item number "+str(i+1)+" : ")
                 b=str(b)
-                f=f+'\n  <li><a href="#">'+b+'</a></li>'
+                f=f+'\n  <li><a href="'+b+'.html">'+b+'</a></li>'
+                skeleton(b)
             f=f+'\n</ul>'
+            
     elif a=="2":
         Type=raw_input("What type of sticky bar would you like:\n1)Top\n2)Sidebar\n")
         Type=int(Type)
@@ -107,18 +110,20 @@ def navigation():
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">"""+Name+"""</a>
+          <a class="navbar-brand" href="index.html">"""+Name+"""</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">"""
                 b=raw_input("What is the name of first item: ")
                 b=str(b)
-                f=f+'\n        <li class="active"><a href="#">'+b+'</a></li>'
+                f=f+'\n        <li class="active"><a href="'+b+'.html">'+b+'</a></li>'
+                skeleton(b)
                 if z is not 1:
                     for i in range(1,z):
                         b=raw_input("Please enter the name of item number "+str(i+1)+" : ")
                         b=str(b)
-                        f=f+'\n        <li><a href="#'+b+'">'+b+'</a></li>'
+                        f=f+'\n        <li><a href="'+b+'.html">'+b+'</a></li>'
+                        skeleton(b)
                     f=f+'\n      </ul>\n    </div>\n  </div>\n' 
             elif type_top==2:
                 nav='    <link rel="stylesheet" href="http://getbootstrap.com/examples/navbar-static-top/navbar-static-top.css">'
@@ -131,25 +136,28 @@ def navigation():
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">"""+Name+"""</a>
+            <a class="navbar-brand" href="index.html">"""+Name+"""</a>
           </div>
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">"""
                 b=raw_input("What is the name of first item: ")
                 b=str(b)
-                f=f+'\n        <li class="active"><a href="#">'+b+'</a></li>'
+                f=f+'\n        <li class="active"><a href="'+b+'.html">'+b+'</a></li>'
+                skeleton(b)
                 if z is not 1:
                     for i in range(1,z):
                         b=raw_input("Please enter the name of item number "+str(i+1)+" : ")
                         b=str(b)
-                        f=f+'\n        <li><a href="#'+b+'">'+b+'</a></li>'
+                        f=f+'\n        <li><a href="'+b+'.html">'+b+'</a></li>'
+                        skeleton(b)
                     f=f+'\n      </ul>\n    </div>\n  </div>\n'
         elif Type==2:
              head=2
              for i in range(0,z):
                 b=raw_input("Please enter the name of item number "+str(i+1)+" : ")
                 b=str(b)
-                f=f+'\n    <li><a href="#">'+b+'</a></li>'
+                f=f+'\n    <li><a href="'+b+'.html">'+b+'</a></li>'
+                skeleton(b)
              f=f+'\n  </ul>\n</div>'
     else:
         print"Wrong input"
@@ -186,13 +194,13 @@ def menu():
 
 #A simple menu function for enabling the user to choose the feature they want to use
 
-def skeleton():
+def skeleton(y):
     try:
-        f= open("Your website.html","r")
+        f= open(y,"r")
         x=""
         f.close()
     except IOError:
-        f= open("Your website.html","w")
+        f= open(y,"w")
         f.close()
         
 #This function generates a html file if one by the name already does not exist
@@ -201,7 +209,7 @@ print'          Welcome to our Website for noobs program\n'
 
 #The program starts here
 
-skeleton()
+skeleton("index.html")
 Final=[]
 
 #An array which hosts the text spitted out by various modules and i plan on using techniques so that it can arrange what text to place where intelegently
