@@ -196,11 +196,11 @@ def menu():
 
 def skeleton(y):
     try:
-        f= open(y,"r")
+        f= open(y+".html","r")
         x=""
         f.close()
     except IOError:
-        f= open(y,"w")
+        f= open(y+".html","w")
         f.close()
         
 #This function generates a html file if one by the name already does not exist
@@ -209,7 +209,7 @@ print'          Welcome to our Website for noobs program\n'
 
 #The program starts here
 
-skeleton("index.html")
+skeleton("index")
 Final=[]
 
 #An array which hosts the text spitted out by various modules and i plan on using techniques so that it can arrange what text to place where intelegently
@@ -247,7 +247,7 @@ while True:
         c=start()
         Final.insert(0,c)
         # This will insert code till the head from the start appropriate to the code requested by the user
-        f= open("Your website.html","a")
+        f= open("index.html","a")
         for i in Final:
             f.write(i)
         f.close()
