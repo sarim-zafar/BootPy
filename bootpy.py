@@ -45,6 +45,8 @@ def start():
 #print out a code without including the css file for any navigation bar
 
 def navigation():
+    pages=[]
+    temp=""
     z=raw_input("How many items do you want in your menu: ")
     z=int(z)
     f=""
@@ -66,6 +68,7 @@ def navigation():
             for i in range(1,z):
                 b=raw_input("Please enter the name of item number "+str(i+1)+" : ")
                 b=str(b)
+                pages.append(b)
                 f=f+'\n      <li><a href="'+b+'.html">'+b+'</a></li>'
                 skeleton(b)
             f=f+'\n    </ul>'
@@ -98,6 +101,7 @@ def navigation():
                     for i in range(1,z):
                         b=raw_input("Please enter the name of item number "+str(i+1)+" : ")
                         b=str(b)
+                        pages.append(b)
                         f=f+'\n            <li><a href="'+b+'.html">'+b+'</a></li>'
                         skeleton(b)
                     f=nav+f+'\n           </ul>\n        </div>\n      </div>\n    </div>\n' 
@@ -123,6 +127,7 @@ def navigation():
                     for i in range(1,z):
                         b=raw_input("Please enter the name of item number "+str(i+1)+" : ")
                         b=str(b)
+                        pages.append(b)
                         f=f+'\n            <li><a href="'+b+'.html">'+b+'</a></li>'
                         skeleton(b)
                     f=nav+f+'\n           </ul>\n        </div>\n      </div>\n    </div>\n'
@@ -140,6 +145,7 @@ def navigation():
             for i in range(1,z):
                 b=raw_input("Please enter the name of item number "+str(i+1)+" : ")
                 b=str(b)
+                pages.append(b)
                 f=f+'\n            <li><a href="'+b+'.html">'+b+'</a></li>'
                 skeleton(b)
             f=f+'\n          </ul>\n        </div>\n    </div>'
@@ -147,6 +153,22 @@ def navigation():
             f=nav+f
     else:
         print"Wrong input"
+    #This part adds the same nav bar for the other pages as well
+    for h in range(0,z):
+        temp3=[]
+        temp3.append(f)
+        temp1=""
+        temp2=""
+        temp=pages[h]
+        temp1=end()
+        temp3.append(temp1)
+        temp2=start()
+        temp3.insert(0,temp2)
+        # This will insert code till the head from the start appropriate to the code requested by the user
+        temp4 = open((temp+".html"),"a")
+        for t in temp3:
+            temp4.write(t)
+        temp4.close()
     return f
 
 #This module is the most complex in the program it allows the user to make a navigation bar of thier choice right now the types of these navigation bars
@@ -242,10 +264,10 @@ while True:
         c=start()
         Final.insert(0,c)
         # This will insert code till the head from the start appropriate to the code requested by the user
-        f= open("index.html","a")
+        Z= open("index.html","a")
         for i in Final:
-            f.write(i)
-        f.close()
+            Z.write(i)
+        Z.close()
         print"Done saving the document\n"
     elif a=="5":
         break
@@ -254,7 +276,8 @@ while True:
         print"\n"
 #Notes for the current program which will be updated upon each new revision:
 #This is a very dumb code write now but i plan on enhancing it i will try to release newer version as fast i can.
-#Right now my goal is to work on adding more modules neccessary and integrating them inteligently also a more clear goal would be to integrate a better way to use
-# the navigation  bar by generating new pages as well as joining them which i will commit personaly in the next few revisions
+#Right now my goal is to work on adding more modules neccessary and integrating them inteligently,
+#also a more clear goal would be to integrate a better way to use
+# the navigation  bar by generating new pages as well as joining them which i will commit personaly in the next few revisions [Done]
 #Regards
 #Sarim Zafar
