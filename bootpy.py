@@ -107,7 +107,7 @@ def navigation():
                     f=nav+f+'\n           </ul>\n        </div>\n      </div>\n    </div>\n' 
             elif type_top==2:
                 nav="""    <link rel="stylesheet" href="http://getbootstrap.com/examples/navbar-static-top/navbar-static-top.css">\n  </head>\n  <body>"""
-                f=f+"""\n<div class="navbar navbar-default" role="navigation">
+                f=f+"""\n  <div class="navbar navbar-default" role="navigation">
         <div class="container-fluid">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
@@ -154,12 +154,15 @@ def navigation():
     else:
         print"Wrong input"
     #This part adds the same nav bar for the other pages as well
-    for h in range(0,z):
+    for h in range(0,z-1):
         temp3=[]
-        temp3.append(f)
+        temp=pages[h]
+        temp5=f
+        temp5=temp5.replace('<li class="active">', '<li>');
+        temp5=temp5.replace('<li><a href="'+temp+'.html">'+temp+'</a></li>', '<li class="active"><a href="'+temp+'.html">'+temp+'</a></li>');
+        temp3.append(temp5)
         temp1=""
         temp2=""
-        temp=pages[h]
         temp1=end()
         temp3.append(temp1)
         temp2=start()
@@ -172,8 +175,7 @@ def navigation():
     return f
 
 #This module is the most complex in the program it allows the user to make a navigation bar of thier choice right now the types of these navigation bars
-#are picked from the getbootstrap site though not all are included also it might be correct to state that it is a pseudo navigation bar as it does have those buttons
-# but they dont do anything meaningfull so the interpage relationship is zero right now so it is only good for one page i am planing to fix this issue next
+#are picked from the getbootstrap site though not all are included fixed the inter page relationship everything now works[HOPEFULLY]
 
 def table(td,tr):
     y='\n<table class="table table-hover">\n  <tr>\n'
@@ -223,8 +225,6 @@ Final=[]
 #An array which hosts the text spitted out by various modules and i plan on using techniques so that it can arrange what text to place where intelegently
 
 global title
-title=raw_input("What do you want the title of the document to be? : ")
-
 #it will name the document as the user input which will appear in the tab
 # What happens from here is quite self explanatory we call functions by passing appropriate variables and they return us code which we add to the array
 # and in the end the program arranges the code ie putting the code from start function on the start of the program and end function to end
@@ -241,6 +241,7 @@ f=""
 #These are some variables that i use to manage all the code during execution of the program , like how to arrange , which to put in start and which in last
 
 Name=raw_input("Enter the Name of your site: ")
+title=Name
 while True:
     a=menu()
     if a=="1":
