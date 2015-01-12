@@ -2,8 +2,7 @@
 #I have tried to divided each module to work independently so that i can pinpoint errors easily i know that the variable names are not clear right now
 #but i plan on assigning them meaningfull names regarding to their purpose description of anything i deem neccessary is written below it if you still have an
 #issue please report
-global generator
-generator=False
+
 def paragraph():
     print("""How big you want the text to be with 'h1' being biggest to 'h6' being the smallest
 h1,h2,h3,h4,h5,h6""")
@@ -176,6 +175,7 @@ def navigation():
                         f=f+'\n                <li><a class="page-scroll" href="#'+b+'">'+b+'</a></li>'
                 f=nav+f+'\n               </ul>\n        </div>\n      </div>\n    </nav>\n'
                 f=f+g
+                global generator
                 generator=False                       
         elif Type==2:
             f=f+"""\n    <div id="wrapper">
@@ -284,7 +284,7 @@ global c
 c=""
 global f
 f=""
-
+generator= True
 #These are some variables that i use to manage all the code during execution of the program , like how to arrange , which to put in start and which in last
 
 Name=raw_input("Enter the Name of your site: ")
