@@ -2,6 +2,7 @@
 #I have tried to divided each module to work independently so that i can pinpoint errors easily i know that the variable names are not clear right now
 #but i plan on assigning them meaningfull names regarding to their purpose description of anything i deem neccessary is written below it if you still have an
 #issue please report
+global generator
 def paragraph():
     print("""How big you want the text to be with 'h1' being biggest to 'h6' being the smallest
 h1,h2,h3,h4,h5,h6""")
@@ -21,11 +22,12 @@ def end():
     <script src="js/jquery.js"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>"""
-    if(html==False):
-        c=c+"""\n    <!-- Scrolling Nav JavaScript -->
+    if generator==False:
+        c=c+"""    <!-- Scrolling Nav JavaScript -->
     <script src="js/jquery.easing.min.js"></script>
     <script src="js/scrolling-nav.js"></script>"""
-    c=c+"""</body>
+    c=c+"""
+  </body>
 </html>"""
     return c
 
@@ -46,12 +48,9 @@ def start():
 #print out a code without including the css file for any navigation bar
 
 def navigation():
-    global html
-    html=True
-    global nav
-    nav=""
     pages=[]
     temp=""
+    generator=True
     z=raw_input("How many items do you want in your menu: ")
     z=int(z)
     f=""
@@ -108,7 +107,7 @@ def navigation():
                         pages.append(b)
                         f=f+'\n            <li><a href="'+b+'.html">'+b+'</a></li>'
                         skeleton(b)
-                    f=f+'\n           </ul>\n        </div>\n      </div>\n    </div>\n' 
+                    f=nav+f+'\n           </ul>\n        </div>\n      </div>\n    </div>\n' 
             elif type_top==2:
                 nav="""    <link rel="stylesheet" href="css/navbar-static-top.css">\n  </head>\n  <body>"""
                 f=f+"""\n  <div class="navbar navbar-default" role="navigation">
@@ -126,7 +125,6 @@ def navigation():
             <ul class="nav navbar-nav">"""
                 b=raw_input("What is the name of first item(This will be your current page): ")
                 b=str(b)
-                temp=b.split(" ")
                 f=f+'\n            <li class="active"><a href="index.html">'+b+'</a></li>'
                 if z is not 1:
                     for i in range(1,z):
@@ -135,7 +133,7 @@ def navigation():
                         pages.append(b)
                         f=f+'\n            <li><a href="'+b+'.html">'+b+'</a></li>'
                         skeleton(b)
-                    f=f+'\n           </ul>\n        </div>\n      </div>\n    </div>\n'
+                    f=nav+f+'\n           </ul>\n        </div>\n      </div>\n    </div>\n'
             elif type_top==3:
                 nav="""    <!-- Custom CSS -->
     <link href="css/scrolling-nav.css" rel="stylesheet">\n  </head>\n  <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">"""
@@ -163,9 +161,8 @@ def navigation():
                     for i in range(0,z):
                         b=raw_input("Please enter the name of item number "+str(i+1)+" : ")
                         b=str(b)
-                        temp=b.split(" ")
                         g=g+'\n<!-- '+b+' Section -->'
-                        g=g+'\n    <section id="'+(temp[0])+'" class="contact-section">'
+                        g=g+'\n    <section id="'+b+'" class="contact-section">'
                         g=g+"""\n    <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -174,11 +171,10 @@ def navigation():
         </div>
     </div>
 </section>\n"""
-                        temp=b.split(" ")
-                        f=f+'\n                <li><a class="page-scroll" href="#'+(temp[0])+'">'+b+'</a></li>'
-                f=f+"\n               </ul>\n        </div>\n      </div>\n    </nav>\n"
+                        f=f+'\n                <li><a class="page-scroll" href="#'+b+'">'+b+'</a></li>'
+                f=nav+f+'\n               </ul>\n        </div>\n      </div>\n    </nav>\n'
                 f=f+g
-                html=False
+                generator=False                       
         elif Type==2:
             f=f+"""\n    <div id="wrapper">
       <div id="sidebar-wrapper">
@@ -198,11 +194,11 @@ def navigation():
                 skeleton(b)
             f=f+'\n          </ul>\n        </div>\n    </div>'
             nav='    <!--Custom CSS -->\n    <link href="css/simple-sidebar.css" rel="stylesheet">\n\n  </head>\n   <body>'
-            
+            f=nav+f
     else:
         print"Wrong input"
     #This part adds the same nav bar for the other pages as well
-    if (html==True):
+    if (generator==True):
         for h in range(0,z-1):
             temp3=[]
             temp=pages[h]
