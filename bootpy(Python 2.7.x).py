@@ -21,7 +21,7 @@ def end():
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="http://getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
   </body>
 </html>"""
     return c
@@ -33,9 +33,9 @@ def start():
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">\n    <title>"""+str(title)+"""</title>\n
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
     <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">\n"""+nav
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">\n"""+nav
     c=c+f
     return c
 
@@ -61,7 +61,6 @@ def navigation():
         b=raw_input("What is the name of first item(This will be your current page): ")
         b=str(b)
         f='\n    <ul '+str(x)+'>\n      <li class="active"><a href="index.html">'+b+'</a></li>'
-        skeleton(b)
         if z is not 1:
             for i in range(1,z):
                 b=raw_input("Please enter the name of item number "+str(i+1)+" : ")
@@ -78,7 +77,7 @@ def navigation():
             type_top=raw_input("What kind of top nav bar do you want?\n1)Fixed\n2)Static\nPlease Choose your option:")
             type_top=int(type_top)
             if type_top==1:
-                nav='    <link rel="stylesheet" href="http://getbootstrap.com/examples/navbar-fixed-top/navbar-fixed-top.css">\n  </head>\n  <body>'
+                nav='    <link rel="stylesheet" href="css/navbar-fixed-top.css">\n  </head>\n  <body>'
                 f=f+"""\n    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
@@ -88,7 +87,7 @@ def navigation():
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">"""+Name+"""</a>
+          <a class="navbar-brand" href="index.html">"""+Name+"""</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">"""
@@ -104,7 +103,7 @@ def navigation():
                         skeleton(b)
                     f=nav+f+'\n           </ul>\n        </div>\n      </div>\n    </div>\n' 
             elif type_top==2:
-                nav="""    <link rel="stylesheet" href="http://getbootstrap.com/examples/navbar-static-top/navbar-static-top.css">\n  </head>\n  <body>"""
+                nav="""    <link rel="stylesheet" href="css/navbar-static-top.css">\n  </head>\n  <body>"""
                 f=f+"""\n  <div class="navbar navbar-default" role="navigation">
         <div class="container-fluid">
           <div class="navbar-header">
@@ -114,7 +113,7 @@ def navigation():
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">"""+Name+"""</a>
+            <a class="navbar-brand" href="index.html">"""+Name+"""</a>
           </div>
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">"""
@@ -147,7 +146,7 @@ def navigation():
                 f=f+'\n            <li><a href="'+b+'.html">'+b+'</a></li>'
                 skeleton(b)
             f=f+'\n          </ul>\n        </div>\n    </div>'
-            nav='    <!--Custom CSS -->\n    <link href="http://ironsummitmedia.github.io/startbootstrap-simple-sidebar/css/simple-sidebar.css" rel="stylesheet">\n\n  </head>\n   <body>'
+            nav='    <!--Custom CSS -->\n    css/simple-sidebar.css" rel="stylesheet">\n\n  </head>\n   <body>'
             f=nav+f
     else:
         print"Wrong input"

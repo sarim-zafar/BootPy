@@ -2,7 +2,7 @@
 #I have tried to divided each module to work independently so that i can pinpoint errors easily i know that the variable names are not clear right now
 #but i plan on assigning them meaningfull names regarding to their purpose description of anything i deem neccessary is written below it if you still have an
 #issue please report
-
+global generator
 def paragraph():
     print("""How big you want the text to be with 'h1' being biggest to 'h6' being the smallest
 h1,h2,h3,h4,h5,h6""")
@@ -19,13 +19,13 @@ def end():
     <!--   ==================================================   -->
     <!-- Placed at the end of the document so the pages load faster -->
     <!-- jQuery -->
-    <script src="http://ironsummitmedia.github.io/startbootstrap-scrolling-nav/js/jquery.js"></script>
+    <script src="js/jquery.js"></script>
     <!-- Bootstrap Core JavaScript -->
-    <script src="http://ironsummitmedia.github.io/startbootstrap-scrolling-nav/js/bootstrap.min.js"></script>"""
+    <script src="js/bootstrap.min.js"></script>"""
     if generator==False:
         c=c+"""    <!-- Scrolling Nav JavaScript -->
-    <script src="http://ironsummitmedia.github.io/startbootstrap-scrolling-nav/js/jquery.easing.min.js"></script>
-    <script src="http://ironsummitmedia.github.io/startbootstrap-scrolling-nav/js/scrolling-nav.js"></script>"""
+    <script src="js/jquery.easing.min.js"></script>
+    <script src="js/scrolling-nav.js"></script>"""
     c=c+"""
   </body>
 </html>"""
@@ -38,9 +38,9 @@ def start():
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">\n    <title>"""+str(title)+"""</title>\n
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="http://ironsummitmedia.github.io/startbootstrap-scrolling-nav/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
     <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">\n"""+nav
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">\n"""+nav
     c=c+f
     return c
 
@@ -67,7 +67,6 @@ def navigation():
         b=raw_input("What is the name of first item(This will be your current page): ")
         b=str(b)
         f='\n    <ul '+str(x)+'>\n      <li class="active"><a href="index.html">'+b+'</a></li>'
-        skeleton(b)
         if z is not 1:
             for i in range(1,z):
                 b=raw_input("Please enter the name of item number "+str(i+1)+" : ")
@@ -84,7 +83,7 @@ def navigation():
             type_top=raw_input("What kind of top nav bar do you want?\n1)Fixed\n2)Static\n3)Scrolling nav(Experimental)\nPlease Choose your option:")
             type_top=int(type_top)
             if type_top==1:
-                nav='    <link rel="stylesheet" href="http://getbootstrap.com/examples/navbar-fixed-top/navbar-fixed-top.css">\n  </head>\n  <body>'
+                nav='    <link rel="stylesheet" href="css/navbar-fixed-top.css">\n  </head>\n  <body>'
                 f=f+"""\n    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
@@ -94,7 +93,7 @@ def navigation():
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">"""+Name+"""</a>
+          <a class="navbar-brand" href="index.html">"""+Name+"""</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">"""
@@ -110,7 +109,7 @@ def navigation():
                         skeleton(b)
                     f=nav+f+'\n           </ul>\n        </div>\n      </div>\n    </div>\n' 
             elif type_top==2:
-                nav="""    <link rel="stylesheet" href="http://getbootstrap.com/examples/navbar-static-top/navbar-static-top.css">\n  </head>\n  <body>"""
+                nav="""    <link rel="stylesheet" href="css/navbar-static-top.css">\n  </head>\n  <body>"""
                 f=f+"""\n  <div class="navbar navbar-default" role="navigation">
         <div class="container-fluid">
           <div class="navbar-header">
@@ -120,7 +119,7 @@ def navigation():
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">"""+Name+"""</a>
+            <a class="navbar-brand" href="index.html">"""+Name+"""</a>
           </div>
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">"""
@@ -137,7 +136,7 @@ def navigation():
                     f=nav+f+'\n           </ul>\n        </div>\n      </div>\n    </div>\n'
             elif type_top==3:
                 nav="""    <!-- Custom CSS -->
-    <link href="http://ironsummitmedia.github.io/startbootstrap-scrolling-nav/css/scrolling-nav.css" rel="stylesheet">\n  </head>\n  <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">"""
+    <link href="css/scrolling-nav.css" rel="stylesheet">\n  </head>\n  <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">"""
                 f=f+"""\n    <!-- Navigation -->
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
@@ -175,7 +174,6 @@ def navigation():
                         f=f+'\n                <li><a class="page-scroll" href="#'+b+'">'+b+'</a></li>'
                 f=nav+f+'\n               </ul>\n        </div>\n      </div>\n    </nav>\n'
                 f=f+g
-                global generator
                 generator=False                       
         elif Type==2:
             f=f+"""\n    <div id="wrapper">
@@ -195,7 +193,7 @@ def navigation():
                 f=f+'\n            <li><a href="'+b+'.html">'+b+'</a></li>'
                 skeleton(b)
             f=f+'\n          </ul>\n        </div>\n    </div>'
-            nav='    <!--Custom CSS -->\n    <link href="http://ironsummitmedia.github.io/startbootstrap-simple-sidebar/css/simple-sidebar.css" rel="stylesheet">\n\n  </head>\n   <body>'
+            nav='    <!--Custom CSS -->\n    <link href="css/simple-sidebar.css" rel="stylesheet">\n\n  </head>\n   <body>'
             f=nav+f
     else:
         print"Wrong input"
@@ -284,7 +282,7 @@ global c
 c=""
 global f
 f=""
-generator= True
+
 #These are some variables that i use to manage all the code during execution of the program , like how to arrange , which to put in start and which in last
 
 Name=raw_input("Enter the Name of your site: ")

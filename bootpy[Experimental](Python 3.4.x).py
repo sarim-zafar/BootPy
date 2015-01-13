@@ -2,7 +2,7 @@
 #I have tried to divided each module to work independently so that i can pinpoint errors easily i know that the variable names are not clear right now
 #but i plan on assigning them meaningfull names regarding to their purpose description of anything i deem neccessary is written below it if you still have an
 #issue please report
-
+global generator
 def paragraph():
     print("""How big you want the text to be with 'h1' being biggest to 'h6' being the smallest
 h1,h2,h3,h4,h5,h6""")
@@ -18,10 +18,15 @@ def end():
     <!----------------Bootstrap core JavaScript------------------->
     <!--   ==================================================   -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="http://getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>"""
+    if generator==False:
+        c=c+"""    <!-- Scrolling Nav JavaScript -->
+    <script src="js/jquery.easing.min.js"></script>
+    <script src="js/scrolling-nav.js"></script>"""
+    c=c+"""
   </body>
 </html>"""
     return c
@@ -45,6 +50,7 @@ def start():
 def navigation():
     pages=[]
     temp=""
+    generator=True
     z=input("How many items do you want in your menu: ")
     z=int(z)
     f=""
@@ -74,7 +80,7 @@ def navigation():
         Type=input("What type of sticky bar would you like:\n1)Top\n2)Sidebar\nPlease Choose your option:")
         Type=int(Type)
         if Type==1:
-            type_top=input("What kind of top nav bar do you want?\n1)Fixed\n2)Static\nPlease Choose your option:")
+            type_top=input("What kind of top nav bar do you want?\n1)Fixed\n2)Static\n3)Scrolling nav(Experimental)\nPlease Choose your option:")
             type_top=int(type_top)
             if type_top==1:
                 nav='    <link rel="stylesheet" href="css/navbar-fixed-top.css">\n  </head>\n  <body>'
@@ -128,6 +134,47 @@ def navigation():
                         f=f+'\n            <li><a href="'+b+'.html">'+b+'</a></li>'
                         skeleton(b)
                     f=nav+f+'\n           </ul>\n        </div>\n      </div>\n    </div>\n'
+            elif type_top==3:
+                nav="""    <!-- Custom CSS -->
+    <link href="css/scrolling-nav.css" rel="stylesheet">\n  </head>\n  <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">"""
+                f=f+"""\n    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand page-scroll" href="#page-top">"""+Name+"""</a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                <li class="hidden"><a class="page-scroll" href="#page-top"></a></li>
+                    <a class="page-scroll" href="#page-top"></a>
+                </li>"""
+                if z is not 1:
+                    g=""
+                    for i in range(0,z):
+                        b=input("Please enter the name of item number "+str(i+1)+" : ")
+                        b=str(b)
+                        g=g+'\n<!-- '+b+' Section -->'
+                        g=g+'\n    <section id="'+b+'" class="contact-section">'
+                        g=g+"""\n    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>"""+b+""" section</h1>
+            </div>
+        </div>
+    </div>
+</section>\n"""
+                        f=f+'\n                <li><a class="page-scroll" href="#'+b+'">'+b+'</a></li>'
+                f=nav+f+'\n               </ul>\n        </div>\n      </div>\n    </nav>\n'
+                f=f+g
+                generator=False                       
         elif Type==2:
             f=f+"""\n    <div id="wrapper">
       <div id="sidebar-wrapper">
@@ -146,29 +193,30 @@ def navigation():
                 f=f+'\n            <li><a href="'+b+'.html">'+b+'</a></li>'
                 skeleton(b)
             f=f+'\n          </ul>\n        </div>\n    </div>'
-            nav='    <!--Custom CSS -->\n    css/simple-sidebar.css" rel="stylesheet">\n\n  </head>\n   <body>'
+            nav='    <!--Custom CSS -->\n    <link href="css/simple-sidebar.css" rel="stylesheet">\n\n  </head>\n   <body>'
             f=nav+f
     else:
         print("Wrong input")
     #This part adds the same nav bar for the other pages as well
-    for h in range(0,z-1):
-        temp3=[]
-        temp=pages[h]
-        temp5=f
-        temp5=temp5.replace('<li class="active">', '<li>');
-        temp5=temp5.replace('<li><a href="'+temp+'.html">'+temp+'</a></li>', '<li class="active"><a href="'+temp+'.html">'+temp+'</a></li>');
-        temp3.append(temp5)
-        temp1=""
-        temp2=""
-        temp1=end()
-        temp3.append(temp1)
-        temp2=start()
-        temp3.insert(0,temp2)
-        # This will insert code till the head from the start appropriate to the code requested by the user
-        temp4 = open((temp+".html"),"a")
-        for t in temp3:
-            temp4.write(t)
-        temp4.close()
+    if (generator==True):
+        for h in range(0,z-1):
+            temp3=[]
+            temp=pages[h]
+            temp5=f
+            temp5=temp5.replace('<li class="active">', '<li>');
+            temp5=temp5.replace('<li><a href="'+temp+'.html">'+temp+'</a></li>', '<li class="active"><a href="'+temp+'.html">'+temp+'</a></li>');
+            temp3.append(temp5)
+            temp1=""
+            temp2=""
+            temp1=end()
+            temp3.append(temp1)
+            temp2=start()
+            temp3.insert(0,temp2)
+            # This will insert code till the head from the start appropriate to the code requested by the user
+            temp4 = open((temp+".html"),"a")
+            for t in temp3:
+                temp4.write(t)
+            temp4.close()
     return f
 
 #This module is the most complex in the program it allows the user to make a navigation bar of thier choice right now the types of these navigation bars
