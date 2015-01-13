@@ -43,6 +43,8 @@ def start():
 #print out a code without including the css file for any navigation bar
 
 def navigation():
+    global nav
+    nav=""
     pages=[]
     temp=""
     z=raw_input("How many items do you want in your menu: ")
@@ -101,7 +103,7 @@ def navigation():
                         pages.append(b)
                         f=f+'\n            <li><a href="'+b+'.html">'+b+'</a></li>'
                         skeleton(b)
-                    f=nav+f+'\n           </ul>\n        </div>\n      </div>\n    </div>\n' 
+                    f=f+'\n           </ul>\n        </div>\n      </div>\n    </div>\n' 
             elif type_top==2:
                 nav="""    <link rel="stylesheet" href="css/navbar-static-top.css">\n  </head>\n  <body>"""
                 f=f+"""\n  <div class="navbar navbar-default" role="navigation">
@@ -127,7 +129,7 @@ def navigation():
                         pages.append(b)
                         f=f+'\n            <li><a href="'+b+'.html">'+b+'</a></li>'
                         skeleton(b)
-                    f=nav+f+'\n           </ul>\n        </div>\n      </div>\n    </div>\n'
+                    f=f+'\n           </ul>\n        </div>\n      </div>\n    </div>\n'
         elif Type==2:
             f=f+"""\n    <div id="wrapper">
       <div id="sidebar-wrapper">
@@ -147,7 +149,7 @@ def navigation():
                 skeleton(b)
             f=f+'\n          </ul>\n        </div>\n    </div>'
             nav='    <!--Custom CSS -->\n    css/simple-sidebar.css" rel="stylesheet">\n\n  </head>\n   <body>'
-            f=nav+f
+            
     else:
         print"Wrong input"
     #This part adds the same nav bar for the other pages as well
