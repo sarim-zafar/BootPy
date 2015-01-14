@@ -9,9 +9,7 @@ but this is all i have right now.
 I plan on improving it in CLI first and if we manage to get that to a advanced stage then i will think of converting it into a GUI
 ,also i havent shared or talked to many people about this project so i dont know if i have taken the right approach,
 but i suppose you guys can help me out.
-I have made a project page on sourceforge.net
 
-https://sourceforge.net/projects/bootpy/
 
 
 Regards,
