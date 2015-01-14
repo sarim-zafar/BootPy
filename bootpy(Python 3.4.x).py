@@ -32,18 +32,18 @@ h1,h2,h3,h4,h5,h6""")
 
 def end():
     c="""
-    <!----------------Bootstrap core JavaScript------------------->
-    <!--   ==================================================   -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
-    <script src="js/bootstrap.min.js"></script>"""
-    if(html==False):
-        c=c+"""\n    <!-- Scrolling Nav JavaScript -->
-    <script src="js/jquery.easing.min.js"></script>
-    <script src="js/scrolling-nav.js"></script>"""
-    c=c+"""</body>
+        <!----------------Bootstrap core JavaScript------------------->
+        <!--   ==================================================   -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <!-- jQuery -->
+        <script src="js/jquery.js"></script>
+        <script src="js/bootstrap.min.js"></script>"""
+    if(scroll_nav==False):
+        c=c+"""\n      <!-- Scrolling Nav JavaScript -->
+        <script src="js/jquery.easing.min.js"></script>
+        <script src="js/scrolling-nav.js"></script>"""
+    c=c+"""\n    </body>
 </html>"""
     return c
 
@@ -64,8 +64,8 @@ def start():
 #print out a code without including the css file for any navigation bar
 
 def navigation():
-    global html
-    html=True
+    global scroll_nav
+    scroll_nav=True
     global nav
     nav=""
     pages=[]
@@ -95,7 +95,7 @@ def navigation():
             f=f+'\n    </ul>'
             
     elif a=="2":
-        type_top=input("What kind of top nav bar do you want?\n1)Fixed\n2)Static\n3)Scrolling nav(Beta!!!)\nPlease Choose your option:")
+        type_top=input("What kind of top nav bar do you want?\n1)Fixed\n2)Static\n3)Scrolling nav(Experimental)\nPlease Choose your option:")
         type_top=int(type_top)
         if type_top==1:
             nav='    <link rel="stylesheet" href="css/navbar-fixed-top.css">\n  </head>\n  <body>'
@@ -192,9 +192,9 @@ def navigation():
                     f=f+'\n                <li><a class="page-scroll" href="#'+(temp[0])+'">'+b+'</a></li>'
             f=f+"\n               </ul>\n        </div>\n      </div>\n    </nav>\n"
             f=f+g
-            html=False
+            scroll_nav=False
     elif (a=="3"):
-        nav='    <!--Custom CSS -->\n    <link href="css/simple-sidebar.css" rel="stylesheet">\n\n  </head>\n   <body>'
+        nav='    <!--Custom CSS -->\n    <link href="css/simple-sidebar.css" rel="stylesheet">\n  </head>\n  <body>'
         f=f+"""\n    <div id="wrapper">
       <div id="sidebar-wrapper">
         <ul class="sidebar-nav">
@@ -215,7 +215,7 @@ def navigation():
     else:
         print("Wrong input")
     #This part adds the same nav bar for the other pages as well
-    if (html==True):
+    if (scroll_nav==True):
         for h in range(0,z-1):
             temp3=[]
             temp=pages[h]
@@ -285,19 +285,12 @@ skeleton("index")
 Final=[]
 
 #An array which hosts the text spitted out by various modules and i plan on using techniques so that it can arrange what text to place where intelegently
-
-global title
-#it will name the document as the user input which will appear in the tab
 # What happens from here is quite self explanatory we call functions by passing appropriate variables and they return us code which we add to the array
 # and in the end the program arranges the code ie putting the code from start function on the start of the program and end function to end
 # and writes it all in a file
-
+global title
+#it will name the document as the user input which will appear in the tab
 global Name
-global nav
-nav=""
-global c
-c=""
-
 #These are some variables that i use to manage all the code during execution of the program , like how to arrange , which to put in start and which in last
 
 Name=input("Enter the Name of your site: ")
@@ -317,6 +310,7 @@ while True:
         print("\nDone\n")
     elif a=="3":
         global f
+        f=""
         f=navigation()
         print("\nDone\n")
     elif a=="4":
@@ -342,7 +336,6 @@ while True:
 #Notes for the current program which will be updated upon each new revision:
 #This is a very dumb code write now but i plan on enhancing it i will try to release newer version as fast i can.
 #Right now my goal is to work on adding more modules neccessary and integrating them inteligently,
-#also a more clear goal would be to integrate a better way to use
-# the navigation  bar by generating new pages as well as joining them which i will commit personaly in the next few revisions [Done]
+#Some minor bug fixes and give me suggestions what to do next
 #Regards
 #Sarim Zafar
