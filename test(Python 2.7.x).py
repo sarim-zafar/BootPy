@@ -140,8 +140,8 @@ def start():
 #print out a code without including the css file for any navigation bar
 
 def navigation():
-    global links
-    links=""
+    global scroll_nav
+    scroll_nav=True
     global nav
     nav=""
     pages=[]
@@ -171,7 +171,7 @@ def navigation():
             f=f+'\n    </ul>'
             
     elif a=="2":
-        type_top=raw_input("What kind of top nav bar do you want?\n1)Fixed\n2)Static\n3)Scrolling nav(Experimental)\nPlease Choose your option:")
+        type_top=raw_input("What kind of top nav bar do you want?\n1)Fixed\n2)Static\n3)Scrolling nav\nPlease Choose your option:")
         type_top=int(type_top)
         if type_top==1:
             nav='    <link rel="stylesheet" href="css/navbar-fixed-top.css">\n  </head>\n  <body>'
@@ -242,11 +242,8 @@ def navigation():
     </div>
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse navbar-ex1-collapse">
-        <ul class="nav navbar-nav">
-            <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
-            <li class="hidden"><a class="page-scroll" href="#page-top"></a></li>
-                <a class="page-scroll" href="#page-top"></a>
-            </li>"""
+        <ul class="nav navbar-nav">\n<li class="hidden"><a class="page-scroll" href="#page-top"></a></li>"""
+            print("----------------Important message----------------\nPlease note that though three portions will be created only two will have tabs and the first portion will become your default or main page and you can access it by clicking on the site name\n----------------Important message----------------")
             g=""
             if z is not 1:
                 g=""
@@ -265,10 +262,11 @@ def navigation():
 </div>
 </section>\n"""
                     temp=b.split(" ")
-                    f=f+'\n                <li><a class="page-scroll" href="#'+(temp[0])+'">'+b+'</a></li>'
+                    if i is not 0:
+                        f=f+'\n                <li><a class="page-scroll" href="#'+(temp[0])+'">'+b+'</a></li>'
             f=f+"\n               </ul>\n        </div>\n      </div>\n    </nav>\n"
             f=f+g
-            links="scroll_nav"
+            scroll_nav=False
     elif (a=="3"):
         nav='    <!--Custom CSS -->\n    <link href="css/simple-sidebar.css" rel="stylesheet">\n  </head>\n  <body>'
         f=f+"""\n    <div id="wrapper">
@@ -291,7 +289,7 @@ def navigation():
     else:
         print"Wrong input"
     #This part adds the same nav bar for the other pages as well
-    if (links!="scroll_nav"):
+    if (scroll_nav==True):
         for h in range(0,z-1):
             temp3=[]
             temp=pages[h]
