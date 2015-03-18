@@ -6,13 +6,13 @@ def image():
     while True:
         x=int(input("Choose how you want to align the image:\n1)Center\n2)Left\n3)Right\nPlease Choose your option: "))
         if(x==1):
-            z='		<img src="images/'+b+'" class="img-responsive center-block">\n'
+            z='\t\t<img src="images/'+b+'" class="img-responsive center-block">\n'
             break
         elif(x==2):
-            z='		<img src="images/'+b+'" class="img-responsive align="left">\n'
+            z='\t\t<img src="images/'+b+'" class="img-responsive align="left">\n'
             break
         elif(x==3):
-            z='		<img src="images/'+b+'" class="img-responsive align="right">\n'
+            z='\t\t<img src="images/'+b+'" class="img-responsive align="right">\n'
             break
         else:
             print("wrong input")     
@@ -25,30 +25,30 @@ def paragraph():
 h1,h2,h3,h4,h5,h6""")
     y=input("Select an option:")
     x=input("Okay great now enter the text:\n")
-    z="\n		<"+y+">"+x+"</"+y+">"
+    z="\n\t\t<"+y+">"+x+"</"+y+">"
     return z
 
 #This is a simple pragraph module which spurts out a simple paragraph in html the user can decide the size 
 
 def end():
     c="""
-		<!----------------Bootstrap core JavaScript------------------->
-		<!--   ==================================================   -->
-		<!-- Placed at the end of the document so the pages load faster -->
-		<!-- Include all compiled plugins (below), or include individual files as needed -->
-		<!-- jQuery -->
-		<script src="js/jquery.js"></script>
-		<script src="js/bootstrap.min.js"></script>"""
+\t\t<!----------------Bootstrap core JavaScript------------------->
+\t\t<!--   ==================================================   -->
+\t\t<!-- Placed at the end of the document so the pages load faster -->
+\t\t<!-- Include all compiled plugins (below), or include individual files as needed -->
+\t\t<!-- jQuery -->
+\t\t<script src="js/jquery.js"></script>
+\t\t<script src="js/bootstrap.min.js"></script>"""
     try:
         if(scroll_nav==False):
             c=c+"""
-		<!-- Scrolling Nav JavaScript -->
-		<script src="js/jquery.easing.min.js"></script>
-		<script src="js/scrolling-nav.js"></script>"""
+\t\t<!-- Scrolling Nav JavaScript -->
+\t\t<script src="js/jquery.easing.min.js"></script>
+\t\t<script src="js/scrolling-nav.js"></script>"""
     except NameError:
         c=c
     c=c+"""
-	</body>
+\t</body>
 </html>"""
     return c
 
@@ -58,27 +58,27 @@ def start():
     try:
         c="""<!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>"""+str(title)+"""</title>
-         <!-- Latest compiled and minified CSS -->
-		<link rel="stylesheet" href="css/bootstrap.min.css">
-		<!-- Optional theme -->
-		<link rel="stylesheet" href="css/bootstrap-theme.min.css">\n"""+nav
+\t<head>
+\t\t<meta charset="utf-8">
+\t\t<meta http-equiv="X-UA-Compatible" content="IE=edge">
+\t\t<meta name="viewport" content="width=device-width, initial-scale=1">
+\t\t<title>"""+str(title)+"""</title>
+\t\t<!-- Latest compiled and minified CSS -->
+\t\t<link rel="stylesheet" href="css/bootstrap.min.css">
+\t\t<!-- Optional theme -->
+\t\t<link rel="stylesheet" href="css/bootstrap-theme.min.css">\n"""+nav
     except NameError:
         c="""<!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>"""+str(title)+"""</title>
-         <!-- Latest compiled and minified CSS -->
-		<link rel="stylesheet" href="css/bootstrap.min.css">
-		<!-- Optional theme -->
-		<link rel="stylesheet" href="css/bootstrap-theme.min.css">\n"""
+\t<head>
+\t\t<meta charset="utf-8">
+\t\t<meta http-equiv="X-UA-Compatible" content="IE=edge">
+\t\t<meta name="viewport" content="width=device-width, initial-scale=1">
+\t\t<title>"""+str(title)+"""</title>
+\t\t<!-- Latest compiled and minified CSS -->
+\t\t<link rel="stylesheet" href="css/bootstrap.min.css">
+\t\t<!-- Optional theme -->
+\t\t<link rel="stylesheet" href="css/bootstrap-theme.min.css">\n"""
     try:
         c=c+f
     except NameError:
@@ -104,117 +104,117 @@ def navigation():
         y=input("What kind of menu do you want:\n1) Horizontal\n2) Vertical\nPlease Choose your option:")
         y=str(y)
         if y=="1":
-            x='nav class="nav nav-pills"'
+            x='\t\tnav class="nav nav-pills"'
         elif y=="2":
-            x='nav class="nav nav-pills nav-stacked"'
+            x='\t\tnav class="nav nav-pills nav-stacked"'
         b=input("What is the name of first item(This will be your current page): ")
         b=str(b)
-        f='\n    <ul '+str(x)+'>\n      <li class="active"><a href="index.html">'+b+'</a></li>'
+        f='\t</head>\t<body>\n\t\t<ul '+str(x)+'>\n\t\t\t<li class="active"><a href="index.html">'+b+'</a></li>'
         if z is not 1:
             for i in range(1,z):
                 b=input("Please enter the name of item number "+str(i+1)+" : ")
                 b=str(b)
                 pages.append(b)
-                f=f+'\n      <li><a href="'+b+'.html">'+b+'</a></li>'
+                f=f+'\n\t\t\t<li><a href="'+b+'.html">'+b+'</a></li>'
                 skeleton(b)
-            f=f+'\n    </ul>'
+            f=f+'\n\t\t</ul>'
             
     elif a=="2":
         type_top=input("What kind of top nav bar do you want?\n1)Fixed\n2)Static\n3)Scrolling nav\nPlease Choose your option:")
         type_top=int(type_top)
         if type_top==1:
             nav="""
-		<link rel="stylesheet" href="css/navbar-fixed-top.css">
-	</head>
-	<body>"""
+\t\t<link rel="stylesheet" href="css/navbar-fixed-top.css">
+\t</head>
+\t<body>"""
             f=f+"""
-		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-			<div class="container">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-				    </button>
-				    <a class="navbar-brand" href="index.html">"""+Name+"""</a>
-			    </div>
-			    <div class="navbar-collapse collapse">
-					<ul class="nav navbar-nav">"""
+\t\t<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+\t\t\t<div class="container">
+\t\t\t\t<div class="navbar-header">
+\t\t\t\t\t<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+\t\t\t\t\t\t<span class="sr-only">Toggle navigation</span>
+\t\t\t\t\t\t<span class="icon-bar"></span>
+\t\t\t\t\t\t<span class="icon-bar"></span>
+\t\t\t\t\t\t<span class="icon-bar"></span>
+\t\t\t\t\t</button>
+\t\t\t\t\t<a class="navbar-brand" href="index.html">"""+Name+"""</a>
+\t\t\t\t</div>
+\t\t\t\t<div class="navbar-collapse collapse">
+\t\t\t\t\t<ul class="nav navbar-nav">"""
             b=input("What is the name of first item(This will be your current page): ")
             b=str(b)
             f=f+'''
-						<li class="active"><a href="index.html">'''+b+'''</a></li>\n'''
+\t\t\t\t\t\t<li class="active"><a href="index.html">'''+b+'''</a></li>\n'''
             if z is not 1:
                 for i in range(1,z):
                     b=input("Please enter the name of item number "+str(i+1)+" : ")
                     b=str(b)
                     pages.append(b)
                     f=f+'''
-						<li><a href="'''+b+'''.html">'''+b+'''</a></li>\n'''
+\t\t\t\t\t\t<li><a href="'''+b+'''.html">'''+b+'''</a></li>\n'''
                     skeleton(b)
                 f=f+"""
-					</ul>
-			    </div>
-			</div>
-		</div>"""
+\t\t\t\t\t</ul>
+\t\t\t\t</div>
+\t\t\t</div>
+\t\t</div>"""
         elif type_top==2:
-            nav="""		<link rel="stylesheet" href="css/navbar-static-top.css">
-	</head>
-	<body>"""
+            nav="""\t\t<link rel="stylesheet" href="css/navbar-static-top.css">
+\t</head>
+\t<body>"""
             f=f+"""
-		<div class="navbar navbar-default" role="navigation">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand" href="index.html">"""+Name+"""</a>
-				</div>
-				<div class="navbar-collapse collapse">
-					<ul class="nav navbar-nav">"""
+\t\t<div class="navbar navbar-default" role="navigation">
+\t\t\t<div class="container-fluid">
+\t\t\t\t<div class="navbar-header">
+\t\t\t\t\t<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+\t\t\t\t\t\t<span class="sr-only">Toggle navigation</span>
+\t\t\t\t\t\t<span class="icon-bar"></span>
+\t\t\t\t\t\t<span class="icon-bar"></span>
+\t\t\t\t\t\t<span class="icon-bar"></span>
+\t\t\t\t\t</button>
+\t\t\t\t\t<a class="navbar-brand" href="index.html">"""+Name+"""</a>
+\t\t\t\t</div>
+\t\t\t\t<div class="navbar-collapse collapse">
+\t\t\t\t\t<ul class="nav navbar-nav">"""
             b=input("What is the name of first item(This will be your current page): ")
             b=str(b)
             f=f+'''
-						<li class="active"><a href="index.html">'''+b+'''</a></li>\n'''
+\t\t\t\t\t\t<li class="active"><a href="index.html">'''+b+'''</a></li>\n'''
             if z is not 1:
                 for i in range(1,z):
                     b=input("Please enter the name of item number "+str(i+1)+" : ")
                     b=str(b)
                     pages.append(b)
                     f=f+'''
-						<li><a href="'''+b+'''.html">'''+b+'''</a></li>\n'''
+\t\t\t\t\t\t<li><a href="'''+b+'''.html">'''+b+'''</a></li>\n'''
                     skeleton(b)
                 f=f+"""
-					</ul>
-				</div>
-		    </div>
-		</div>"""
+\t\t\t\t\t</ul>
+\t\t\t\t</div>
+\t\t\t</div>
+\t\t</div>"""
         elif type_top==3:
-            nav="""		<!-- Custom CSS -->
-		<link href="css/scrolling-nav.css" rel="stylesheet">
-	</head>
-	<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">"""
+            nav="""\t\t<!-- Custom CSS -->
+\t\t<link href="css/scrolling-nav.css" rel="stylesheet">
+\t</head>
+\t<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">"""
             f=f+"""
-		<!-- Navigation -->
-		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-			<div class="container">
-				<div class="navbar-header page-scroll">
-					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand page-scroll" href="#page-top">"""+Name+"""</a>
-				</div>
-				<!-- Collect the nav links, forms, and other content for toggling -->
-				<div class="collapse navbar-collapse navbar-ex1-collapse">
-					<ul class="nav navbar-nav">
-						<li class="hidden"><a class="page-scroll" href="#page-top"></a></li>"""
+\t\t<!-- Navigation -->
+\t\t<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+\t\t\t<div class="container">
+\t\t\t\t<div class="navbar-header page-scroll">
+\t\t\t\t\t<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+\t\t\t\t\t\t<span class="sr-only">Toggle navigation</span>
+\t\t\t\t\t\t<span class="icon-bar"></span>
+\t\t\t\t\t\t<span class="icon-bar"></span>
+\t\t\t\t\t\t<span class="icon-bar"></span>
+\t\t\t\t\t</button>
+\t\t\t\t\t<a class="navbar-brand page-scroll" href="#page-top">"""+Name+"""</a>
+\t\t\t\t</div>
+\t\t\t\t<!-- Collect the nav links, forms, and other content for toggling -->
+\t\t\t\t<div class="collapse navbar-collapse navbar-ex1-collapse">
+\t\t\t\t\t<ul class="nav navbar-nav">
+\t\t\t\t\t\t<li class="hidden"><a class="page-scroll" href="#page-top"></a></li>"""
             g=""
             print("----------------Important message----------------\nPlease note that though three portions will be created only two will have tabs and the first portion will become your default or main page and you can access it by clicking on the site name\n----------------Important message----------------")
             if z is not 1:
@@ -224,60 +224,60 @@ def navigation():
                     b=str(b)
                     temp=b.split(" ")
                     g=g+'''
-		<!-- '''+b+''' Section -->'''
+\t\t<!-- '''+b+''' Section -->'''
                     g=g+'''
-		<section id="'''+(temp[0])+'''" class="contact-section">'''
+\t\t<section id="'''+(temp[0])+'''" class="contact-section">'''
                     g=g+"""
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-12">
-						<h1>"""+b+""" section</h1>
-					</div>
-				</div>
-			</div>
-		</section>"""
+\t\t\t<div class="container">
+\t\t\t\t<div class="row">
+\t\t\t\t\t<div class="col-lg-12">
+\t\t\t\t\t\t<h1>"""+b+""" section</h1>
+\t\t\t\t\t</div>
+\t\t\t\t</div>
+\t\t\t</div>
+\t\t</section>"""
                     temp=b.split(" ")
                     if i is not 0:
                         f=f+'''              
-						<li><a class="page-scroll" href="#'''+(temp[0])+'''">'''+b+'''</a></li>'''
+\t\t\t\t\t\t<li><a class="page-scroll" href="#'''+(temp[0])+'''">'''+b+'''</a></li>'''
             f=f+"""               
-					</ul>
-				</div>
-			</div>
-		</nav>"""
+\t\t\t\t\t</ul>
+\t\t\t\t</div>
+\t\t\t</div>
+\t\t</nav>"""
             f=f+g
             scroll_nav=False
     elif (a=="3"):
-        nav="""		<!--Custom CSS -->
-			<link href="css/simple-sidebar.css" rel="stylesheet">
-	</head>
-	<body>"""
+        nav="""\t\t<!--Custom CSS -->
+\t\t\t<link href="css/simple-sidebar.css" rel="stylesheet">
+\t</head>
+\t<body>"""
         f=f+"""
-		<div id="wrapper">
-			<div id="sidebar-wrapper">
-				<ul class="sidebar-nav">
-					<li class="sidebar-brand">
-						<a href="index.html">"""+Name+"""</a>
-					</li>"""
+\t\t<div id="wrapper">
+\t\t\t<div id="sidebar-wrapper">
+\t\t\t\t<ul class="sidebar-nav">
+\t\t\t\t\t<li class="sidebar-brand">
+\t\t\t\t\t\t<a href="index.html">"""+Name+"""</a>
+\t\t\t\t\t</li>"""
         b=input("What is the name of first item(This will be your current page): ")
         b=str(b)
         f=f+'''
-					<li>
-						<a href="index.html">'''+b+'''</a>
-					</li>'''
+\t\t\t\t\t<li>
+\t\t\t\t\t\t<a href="index.html">'''+b+'''</a>
+\t\t\t\t\t</li>'''
         for i in range(1,z):
             b=input("Please enter the name of item number "+str(i+1)+" : ")
             b=str(b)
             pages.append(b)
             f=f+'''
-					<li>
-						<a href="'''+b+'''.html">'''+b+'''</a>
-					</li>'''
+\t\t\t\t\t<li>
+\t\t\t\t\t\t<a href="'''+b+'''.html">'''+b+'''</a>
+\t\t\t\t\t</li>'''
             skeleton(b)
         f=f+"""
-				</ul>
-			</div>
-		</div>"""
+\t\t\t\t</ul>
+\t\t\t</div>
+\t\t</div>"""
     else:
         print("Wrong input")
     #This part adds the same nav bar for the other pages as well
@@ -307,27 +307,27 @@ def navigation():
 
 def table(td,tr):
     y="""
-		<table class="table table-hover">
-			<tr>"""
+\t\t<table class="table table-hover">
+\t\t\t<tr>"""
     for x in range(0,b):
         z=input("Enter heading for "+str(x+1)+" colomn: ")
         z="""
-				<th>"""+z+"""</th>"""
+\t\t\t\t<th>"""+z+"""</th>"""
         y=y+z
     y=y+"""
-			</tr>"""
+\t\t\t</tr>"""
     for i in range(0,tr):
         y=y+"""
-			<tr>"""
+\t\t\t<tr>"""
         for p in range(0,td):
             y=y+"""
-				<td>"""
+\t\t\t\t<td>"""
             y=y+input("Enter value of cell at "+str(i)+" rows * "+str(p)+" colomns: ")
-            y="""	"""+y+"""</td>"""
+            y="""\t"""+y+"""</td>"""
         y=y+"""
-			</tr>"""
+\t\t\t</tr>"""
     y=y+"""       
-		</table>"""
+\t\t</table>"""
     return y
 
 #This programs enables the end users to write tables in html as easy as it gets
