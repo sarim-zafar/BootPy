@@ -98,18 +98,24 @@ def navigation():
     z=input("How many items do you want in your menu: ")
     z=int(z)
     f=""
+    logo=input("Do you want to add a logo to the navigation bar?\n 1)Yes\n2)No\nPlease Choose your option:")                                        
     a=input("""Please classify the type of Nav-bar that you want from the following:
 1)Pils(Will look like buttons)\n2)Sticky(Fixed to top)\n3)Sidebar\nPlease Choose your option:""")
     if a=="1":
         y=input("What kind of menu do you want:\n1) Horizontal\n2) Vertical\nPlease Choose your option:")
         y=str(y)
         if y=="1":
-            x='\t\tnav class="nav nav-pills"'
+            x=' nav class="nav nav-pills"'
         elif y=="2":
             x='\t\tnav class="nav nav-pills nav-stacked"'
         b=input("What is the name of first item(This will be your current page): ")
         b=str(b)
-        f='\t</head>\t<body>\n\t\t<ul '+str(x)+'>\n\t\t\t<li class="active"><a href="index.html">'+b+'</a></li>'
+        f='\t</head>\n\t<body>\n\t\t<ul '+str(x)+'>\n'
+        if logo=="1":
+            logo1=input("Enter the name of the image with extension(e.g image.jpg): ")
+            f=f+'\t\t\t<img src="images/"'+logo1+'" alt="">'
+            print("Great!!! all done now copy the image into the 'images' folder")
+        f=f+'\t\t\t<li class="active"><a href="index.html">'+b+'</a></li>'
         if z is not 1:
             for i in range(1,z):
                 b=input("Please enter the name of item number "+str(i+1)+" : ")
@@ -136,15 +142,19 @@ def navigation():
 \t\t\t\t\t\t<span class="icon-bar"></span>
 \t\t\t\t\t\t<span class="icon-bar"></span>
 \t\t\t\t\t\t<span class="icon-bar"></span>
-\t\t\t\t\t</button>
-\t\t\t\t\t<a class="navbar-brand" href="index.html">"""+Name+"""</a>
-\t\t\t\t</div>
-\t\t\t\t<div class="navbar-collapse collapse">
-\t\t\t\t\t<ul class="nav navbar-nav">"""
+\t\t\t\t\t</button>"""
+            if logo=="1":
+                logo1=input("Enter the name of the image with extension(e.g image.jpg): ")
+                f=f+'\n\t\t\t\t\t<img src="images/"'+logo1+'" alt="">'
+                print("Great!!! all done now copy the image into the 'images' folder")
+            f=f+"""\t\t\t\t\t<a class="navbar-brand" href="index.html">"""+Name+"""</a>
+    \t\t\t\t</div>
+    \t\t\t\t<div class="navbar-collapse collapse">
+    \t\t\t\t\t<ul class="nav navbar-nav">"""
             b=input("What is the name of first item(This will be your current page): ")
             b=str(b)
             f=f+'''
-\t\t\t\t\t\t<li class="active"><a href="index.html">'''+b+'''</a></li>\n'''
+    \t\t\t\t\t\t<li class="active"><a href="index.html">'''+b+'''</a></li>\n'''
             if z is not 1:
                 for i in range(1,z):
                     b=input("Please enter the name of item number "+str(i+1)+" : ")
@@ -171,7 +181,12 @@ def navigation():
 \t\t\t\t\t\t<span class="icon-bar"></span>
 \t\t\t\t\t\t<span class="icon-bar"></span>
 \t\t\t\t\t\t<span class="icon-bar"></span>
-\t\t\t\t\t</button>
+\t\t\t\t\t</button>"""
+            if logo=="1":
+                logo1=input("Enter the name of the image with extension(e.g image.jpg): ")
+                f=f+'\n\t\t\t\t\t<img src="images/"'+logo1+'" alt="">'
+                print("Great!!! all done now copy the image into the 'images' folder")
+            f=f+"""
 \t\t\t\t\t<a class="navbar-brand" href="index.html">"""+Name+"""</a>
 \t\t\t\t</div>
 \t\t\t\t<div class="navbar-collapse collapse">
@@ -208,7 +223,12 @@ def navigation():
 \t\t\t\t\t\t<span class="icon-bar"></span>
 \t\t\t\t\t\t<span class="icon-bar"></span>
 \t\t\t\t\t\t<span class="icon-bar"></span>
-\t\t\t\t\t</button>
+\t\t\t\t\t</button>"""
+            if logo=="1":
+                logo1=input("Enter the name of the image with extension(e.g image.jpg): ")
+                f=f+'\n\t\t\t\t\t<img src="images/"'+logo1+'" alt="">'
+                print("Great!!! all done now copy the image into the 'images' folder")            
+            f=f+"""
 \t\t\t\t\t<a class="navbar-brand page-scroll" href="#page-top">"""+Name+"""</a>
 \t\t\t\t</div>
 \t\t\t\t<!-- Collect the nav links, forms, and other content for toggling -->
@@ -333,7 +353,7 @@ def table(td,tr):
 #This programs enables the end users to write tables in html as easy as it gets
 
 def menu():
-    print("What do you want to do first:\n1) Generate a table \n2) Generate a paragraph \n3) Generate a navigation menu\n4) Add an Image\n5)Save the document\n6)Exit\n")
+    print("What do you want to do first:\n1) Generate a table \n2) Generate a paragraph \n3) Generate a navigation menu\n4) Add an Image\n5)Save the document\n6)Exit")
     y=input("Please Choose your option:")
     y=str(y)
     return y
