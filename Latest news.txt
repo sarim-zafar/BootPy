@@ -6,7 +6,8 @@ a regular site generator Cheers :D
 Blogging feature is on hold i am currently trying to get in some more features 
 
 
-
+I am starting to see the limitation of CLI so while i am working on the code , i ve started looking into GUI
+ i havent decided to release it as a webapp like in browser similar to wordpress or proper windows software i will reflect on it in the meanwhile
 
 i am currently working on a major release where i will be using a more refined version of this program i am thinking
 of using it as a cms for blogs so from now i will update the program accordingly i will place the current program in legacy
