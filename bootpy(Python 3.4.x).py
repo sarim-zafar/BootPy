@@ -98,7 +98,7 @@ def navigation():
     z=input("How many items do you want in your menu: ")
     z=int(z)
     f=""
-    logo=input("Do you want to add a logo to the navigation bar?\n 1)Yes\n2)No\nPlease Choose your option:")                                        
+    logo=input("Do you want to add a logo to the navigation bar?\n1)Yes\n2)No\nPlease Choose your option:")                                        
     a=input("""Please classify the type of Nav-bar that you want from the following:
 1)Pils(Will look like buttons)\n2)Sticky(Fixed to top)\n3)Sidebar\nPlease Choose your option:""")
     if a=="1":
@@ -269,7 +269,7 @@ def navigation():
             scroll_nav=False
     elif (a=="3"):
         nav="""\t\t<!--Custom CSS -->
-\t\t\t<link href="css/simple-sidebar.css" rel="stylesheet">
+\t\t<link href="css/simple-sidebar.css" rel="stylesheet">
 \t</head>
 \t<body>"""
         f=f+"""
@@ -353,7 +353,7 @@ def table(td,tr):
 #This programs enables the end users to write tables in html as easy as it gets
 
 def menu():
-    print("What do you want to do first:\n1) Generate a table \n2) Generate a paragraph \n3) Generate a navigation menu\n4) Add an Image\n5)Save the document\n6)Exit")
+    print("What do you want to do first:\n1) Generate a table \n2) Generate a paragraph \n3) Generate a navigation menu\n4) Add an Image\n5) Save the document\n6) Exit")
     y=input("Please Choose your option:")
     y=str(y)
     return y
@@ -414,7 +414,16 @@ while True:
         c=start()
         Final.insert(0,c)
         # This will insert code till the head from the start appropriate to the code requested by the user
-        Z= open("index.html","a")
+        for i in range(0,len(Final)-1):
+            for j in range(i+1,len(Final)-1):
+                if Final[j]==Final[i]:
+                    Final.remove(Final[j])
+                    i=i+1
+        i=len(Final)-1
+        j=len(Final)-2
+        if Final[i]==Final[j]:
+            Final.remove(Final[j])          
+        Z= open("index.html","w")
         for i in Final:
             Z.write(i)
         Z.close()
