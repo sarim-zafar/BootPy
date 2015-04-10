@@ -269,7 +269,7 @@ def navigation():
             scroll_nav=False
     elif (a=="3"):
         nav="""\t\t<!--Custom CSS -->
-\t\t\t<link href="css/simple-sidebar.css" rel="stylesheet">
+\t\t<link href="css/simple-sidebar.css" rel="stylesheet">
 \t</head>
 \t<body>"""
         f=f+"""
@@ -414,6 +414,15 @@ while True:
         c=start()
         Final.insert(0,c)
         # This will insert code till the head from the start appropriate to the code requested by the user
+        for i in range(0,len(Final)-1):
+            for j in range(i+1,len(Final)-1):
+                if Final[j]==Final[i]:
+                    Final.remove(Final[j])
+                    i=i+1
+        i=len(Final)-1
+        j=len(Final)-2
+        if Final[i]==Final[j]:
+            Final.remove(Final[j])
         Z= open("index.html","a")
         for i in Final:
             Z.write(i)
