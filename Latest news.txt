@@ -4,6 +4,8 @@ a regular site generator Cheers :D
 
 LATEST WAZZUP:
 Notes to self: add the toggle button in sidebar navigation in every release as soon as possible 
+Also add the footer feature in the stable version instead of test one also try to add as many social media hubs as possible
+and get link from the user to link those little icons in the footer to the users webpage or whatever
 
 Blogging feature is on hold i am currently trying to get in some more features 
 
