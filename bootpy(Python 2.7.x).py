@@ -1,6 +1,83 @@
 #I have tried to divided each module to work independently so that i can pinpoint errors easily i know that the variable names are not clear right now
 #but i plan on assigning them meaningfull names regarding to their purpose description of anything i deem neccessary is written below it if you still have an
 #issue please report
+
+def footer():
+    k="""\n\t\t<footer>
+\t\t\t<div class="container">
+\t\t\t\t<div class="row">
+\t\t\t\t\t<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+\t\t\t\t\t\t<ul class="list-inline text-center">"""
+    while True:
+        a=int(raw_input("\nPlease Choose from the following:\n1)Link to Twitter\n2)Link to Facebook\n3)Link to github\n4)Link to google plus\n5)Link to yahoo\n6)Link to reddit\nPlease Choose your option:"))
+        x=raw_input("\nEnter the link you want to embed in regard to the chosen option:")
+        if a==1:
+            k=k+'''\n\t\t\t\t\t\t\t<li>
+\t\t\t\t\t\t\t\t<a href='''+x+'''>
+\t\t\t\t\t\t\t\t\t<span class="fa-stack fa-lg">
+\t\t\t\t\t\t\t\t\t\t<i class="fa fa-circle fa-stack-2x"></i>
+\t\t\t\t\t\t\t\t\t\t<i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+\t\t\t\t\t\t\t\t\t</span>
+\t\t\t\t\t\t\t\t</a>
+\t\t\t\t\t\t\t</li>\n'''        
+        if a==2:
+            k=k+'''\n\t\t\t\t\t\t\t<li>
+\t\t\t\t\t\t\t\t<a href='''+x+'''>
+\t\t\t\t\t\t\t\t\t<span class="fa-stack fa-lg">
+\t\t\t\t\t\t\t\t\t\t<i class="fa fa-circle fa-stack-2x"></i>
+\t\t\t\t\t\t\t\t\t\t<i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+\t\t\t\t\t\t\t\t\t</span>
+\t\t\t\t\t\t\t\t</a>
+\t\t\t\t\t\t\t</li>\n'''
+        if a==3:
+            k=k+'''\n\t\t\t\t\t\t\t<li>
+\t\t\t\t\t\t\t\t<a href='''+x+'''>
+\t\t\t\t\t\t\t\t\t<span class="fa-stack fa-lg">
+\t\t\t\t\t\t\t\t\t\t<i class="fa fa-circle fa-stack-2x"></i>
+\t\t\t\t\t\t\t\t\t\t<i class="fa fa-github fa-stack-1x fa-inverse"></i>
+\t\t\t\t\t\t\t\t\t</span>
+\t\t\t\t\t\t\t\t</a>
+\t\t\t\t\t\t\t</li>\n'''
+        if a==4:
+            k=k+'''\n\t\t\t\t\t\t\t<li>
+\t\t\t\t\t\t\t\t<a href='''+x+'''>
+\t\t\t\t\t\t\t\t\t<span class="fa-stack fa-lg">
+\t\t\t\t\t\t\t\t\t\t<i class="fa fa-circle fa-stack-2x"></i>
+\t\t\t\t\t\t\t\t\t\t<i class="fa fa-google-plus fa-stack-1x fa-inverse"></i>
+\t\t\t\t\t\t\t\t\t</span>
+\t\t\t\t\t\t\t\t</a>
+\t\t\t\t\t\t\t</li>\n'''
+        if a==5:
+             k=k+'''\n\t\t\t\t\t\t\t<li>
+\t\t\t\t\t\t\t\t<a href='''+x+'''>
+\t\t\t\t\t\t\t\t\t<span class="fa-stack fa-lg">
+\t\t\t\t\t\t\t\t\t\t<i class="fa fa-circle fa-stack-2x"></i>
+\t\t\t\t\t\t\t\t\t\t<i class="fa fa-yahoo fa-stack-1x fa-inverse"></i>
+\t\t\t\t\t\t\t\t\t</span>
+\t\t\t\t\t\t\t\t</a>
+\t\t\t\t\t\t\t</li>\n'''
+        if a==6:
+            k=k+'''\n\t\t\t\t\t\t\t<li>
+\t\t\t\t\t\t\t\t<a href='''+x+'''>
+\t\t\t\t\t\t\t\t\t<span class="fa-stack fa-lg">
+\t\t\t\t\t\t\t\t\t\t<i class="fa fa-circle fa-stack-2x"></i>
+\t\t\t\t\t\t\t\t\t\t<i class="fa fa-reddit fa-stack-1x fa-inverse"></i>
+\t\t\t\t\t\t\t\t\t</span>
+\t\t\t\t\t\t\t\t</a>
+\t\t\t\t\t\t\t</li>\n'''
+        b=int(raw_input("Do you want to add more links:\n1)Yes\n2)No\nPlease Choose your option:"))
+        if b==2:
+            k=k+"""\t\t\t\t\t\t\t<p class="copyright text-muted">Copyright &copy; """+Name+""" 2015</p>
+\t\t\t\t\t\t</ul>
+\t\t\t\t\t</div>
+\t\t\t\t</div>
+\t\t\t</div>
+\t\t</footer>"""
+            break
+        else:
+            print("\nWrong Input")
+    return k
+
 def image():
     b=raw_input("Enter the name of the image with extension(e.g image.jpg): ")
     while True:
@@ -353,7 +430,7 @@ def table(td,tr):
 #This programs enables the end users to write tables in html as easy as it gets
 
 def menu():
-    print("What do you want to do first:\n1) Generate a table \n2) Generate a paragraph \n3) Generate a navigation menu\n4) Add an Image\n5)Save the document\n6)Exit")
+    print("What do you want to do first:\n1) Generate a table \n2) Generate a paragraph \n3) Generate a navigation menu\n4) Add an Image\n5) Add an Footer\n6)Save the document\n7)Exit")
     y=raw_input("Please Choose your option:")
     y=str(y)
     return y
@@ -384,6 +461,13 @@ global title
 global Name
 #These are some variables that i use to manage all the code during execution of the program , like how to arrange , which to put in start and which in last
 
+global nav_exists
+nav_exists=False
+#Insure wheather user added a nav bar or not if he didnt then it will add the close tag for head and open tag for body without adding any stylesheets used for the nav bar
+global footer_exists
+footer_exists=False
+#Insure wheather user added a footer or not if he didnt then it will add the close tag for head and open tag for body without adding any stylesheets used for the footer
+
 Name=raw_input("Enter the Name of your site: ")
 title=Name
 while True:
@@ -404,11 +488,17 @@ while True:
         f=""
         f=navigation()
         print"\nDone\n"
+        nav_exists=True
     elif a=="4":
         y=image()
         Final.append(y)
         print"\nDone\n"
     elif a=="5":
+        y=footer()
+        Final.append(y)
+        print"\nDone\n"
+        footer_exists=True
+    elif a=="6":
         x=end()
         Final.append(x)
         c=start()
@@ -423,12 +513,22 @@ while True:
         j=len(Final)-2
         if Final[i]==Final[j]:
             Final.remove(Final[j])
+        if footer_exists==True:
+            x='''\t\t<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">'''
+            Final.insert(1, x)
+        if nav_exists==False:
+            x="\t</head>\n\t<body>"
+            if footer_exists==True:
+                Final.insert(2, x)
+            else:
+                Final.insert(1, x)
         Z= open("index.html","a")
         for i in Final:
             Z.write(i)
         Z.close()
-        print"Done saving the document\n"
-    elif a=="6":
+        print"""------------------------------------------
+Done saving the document\n------------------------------------------"""
+    elif a=="7":
         break
     else:
         print "Wrong Input"
