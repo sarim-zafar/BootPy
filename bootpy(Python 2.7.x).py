@@ -514,7 +514,7 @@ while True:
         if Final[i]==Final[j]:
             Final.remove(Final[j])
         if footer_exists==True:
-            x='''\t\t<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">'''
+            x='''\t\t<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">\n'''
             Final.insert(1, x)
         if nav_exists==False:
             x="\t</head>\n\t<body>"
