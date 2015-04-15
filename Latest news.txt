@@ -4,7 +4,7 @@ a regular site generator Cheers :D
 
 LATEST WAZZUP:
 Start working on the option to edit code as well as adding new things to files created through previous sessions/executions
-Notes to self: add the toggle button in sidebar navigation in upcoming releases as soon as possible[In next release]
+Notes to self: add the toggle button in sidebar navigation in upcoming releases as soon as possible[In next release][Still working on its placement]
 [DONE]Also add the footer feature in the stable version instead of test one also try to add as many social media hubs as possible[Adding more social media icons]
 
 Blogging feature is on hold i am currently trying to get in some more features 

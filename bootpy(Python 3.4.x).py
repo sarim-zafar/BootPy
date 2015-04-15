@@ -102,7 +102,7 @@ def paragraph():
 h1,h2,h3,h4,h5,h6""")
     y=input("Select an option:")
     x=input("Okay great now enter the text:\n")
-    z="\n\t\t<"+y+">"+x+"</"+y+">"
+    z="\n\t\t<"+y+">"+x+"</"+y+">\n"
     return z
 
 #This is a simple pragraph module which spurts out a simple paragraph in html the user can decide the size 
@@ -175,7 +175,7 @@ def navigation():
     z=input("How many items do you want in your menu: ")
     z=int(z)
     f=""
-    logo=input("Do you want to add a logo to the navigation bar?\n 1)Yes\n2)No\nPlease Choose your option:")                                        
+    logo=input("Do you want to add a logo to the navigation bar?\n1)Yes\n2)No\nPlease Choose your option:")                                        
     a=input("""Please classify the type of Nav-bar that you want from the following:
 1)Pils(Will look like buttons)\n2)Sticky(Fixed to top)\n3)Sidebar\nPlease Choose your option:""")
     if a=="1":
@@ -224,7 +224,7 @@ def navigation():
                 logo1=input("Enter the name of the image with extension(e.g image.jpg): ")
                 f=f+'\n\t\t\t\t\t<img src="images/"'+logo1+'" alt="">'
                 print("Great!!! all done now copy the image into the 'images' folder")
-            f=f+"""\t\t\t\t\t<a class="navbar-brand" href="index.html">"""+Name+"""</a>
+            f=f+"""\n\t\t\t\t\t<a class="navbar-brand" href="index.html">"""+Name+"""</a>
     \t\t\t\t</div>
     \t\t\t\t<div class="navbar-collapse collapse">
     \t\t\t\t\t<ul class="nav navbar-nav">"""
@@ -407,7 +407,7 @@ def table(td,tr):
 \t\t<table class="table table-hover">
 \t\t\t<tr>"""
     for x in range(0,b):
-        z=input("Enter heading for "+str(x+1)+" colomn: ")
+        z=input("Enter heading for "+str(x+1)+" column: ")
         z="""
 \t\t\t\t<th>"""+z+"""</th>"""
         y=y+z
@@ -419,7 +419,7 @@ def table(td,tr):
         for p in range(0,td):
             y=y+"""
 \t\t\t\t<td>"""
-            y=y+input("Enter value of cell at "+str(i)+" rows * "+str(p)+" colomns: ")
+            y=y+input("Enter value of cell at "+str(i)+" rows * "+str(p)+" columns: ")
             y="""\t"""+y+"""</td>"""
         y=y+"""
 \t\t\t</tr>"""
@@ -475,7 +475,7 @@ while True:
     if a=="1":
         z=[]
         a=int(input("Please enter the number of rows in your table: "))
-        b=int(input("Please enter the number of colomns in your table: "))
+        b=int(input("Please enter the number of columns in your table: "))
         y=table(a,b)
         Final.append(y)
         print("\nDone\n")
