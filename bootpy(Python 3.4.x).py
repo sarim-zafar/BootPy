@@ -108,6 +108,7 @@ h1,h2,h3,h4,h5,h6""")
 #This is a simple pragraph module which spurts out a simple paragraph in html the user can decide the size 
 
 def end():
+    global scroll_nav
     c="""
 \t\t<!----------------Bootstrap core JavaScript------------------->
 \t\t<!--   ==================================================   -->
@@ -116,14 +117,18 @@ def end():
 \t\t<!-- jQuery -->
 \t\t<script src="js/jquery.js"></script>
 \t\t<script src="js/bootstrap.min.js"></script>"""
-    try:
-        if(scroll_nav==False):
-            c=c+"""
+    if(scroll_nav==False):
+        c=c+"""
 \t\t<!-- Scrolling Nav JavaScript -->
 \t\t<script src="js/jquery.easing.min.js"></script>
 \t\t<script src="js/scrolling-nav.js"></script>"""
-    except NameError:
-        c=c
+    if (sidebar_nav_exists==True):
+        c=c+"""\n\t\t<script>
+\t\t\t$("#menu-toggle").click(function(e) {
+\t\t\t\te.preventDefault();
+\t\t\t\t$("#wrapper").toggleClass("toggled");
+\t\t\t});
+\t\t</script>"""
     c=c+"""
 \t</body>
 </html>"""
@@ -132,8 +137,8 @@ def end():
 #As the name suggests its a module which simply gives a fixed code which is supposed to be merged to the end of all the other code
 
 def start():
-    try:
-        c="""<!DOCTYPE html>
+    global nav
+    c="""<!DOCTYPE html>
 <html lang="en">
 \t<head>
 \t\t<meta charset="utf-8">
@@ -144,22 +149,8 @@ def start():
 \t\t<link rel="stylesheet" href="css/bootstrap.min.css">
 \t\t<!-- Optional theme -->
 \t\t<link rel="stylesheet" href="css/bootstrap-theme.min.css">\n"""+nav
-    except NameError:
-        c="""<!DOCTYPE html>
-<html lang="en">
-\t<head>
-\t\t<meta charset="utf-8">
-\t\t<meta http-equiv="X-UA-Compatible" content="IE=edge">
-\t\t<meta name="viewport" content="width=device-width, initial-scale=1">
-\t\t<title>"""+str(title)+"""</title>
-\t\t<!-- Latest compiled and minified CSS -->
-\t\t<link rel="stylesheet" href="css/bootstrap.min.css">
-\t\t<!-- Optional theme -->
-\t\t<link rel="stylesheet" href="css/bootstrap-theme.min.css">\n"""
-    try:
-        c=c+f
-    except NameError:
-        return c
+    global f
+    c=c+f
     return c
 
 #It is a module which decides what to write in the head of the document depending upon the choice of the navigation bar if no navigation bar is chosen it will
@@ -344,7 +335,9 @@ def navigation():
 \t\t</nav>"""
             f=f+g
             scroll_nav=False
-    elif (a=="3"):
+    elif a=="3":
+        global sidebar_nav_exists
+        sidebar_nav_exists=True
         nav="""\t\t<!--Custom CSS -->
 \t\t<link href="css/simple-sidebar.css" rel="stylesheet">
 \t</head>
@@ -374,6 +367,9 @@ def navigation():
         f=f+"""
 \t\t\t\t</ul>
 \t\t\t</div>
+\t\t\t<a href="#menu-toggle" id="menu-toggle" class="btn btn-default">Toggle Menu
+\t\t\t\t<i class="fa fa-angle-double-down animated"></i>
+\t\t\t</a>
 \t\t</div>"""
     else:
         print("Wrong input")
@@ -461,12 +457,18 @@ global title
 global Name
 #These are some variables that i use to manage all the code during execution of the program , like how to arrange , which to put in start and which in last
 
+scroll_nav=False
 global nav_exists
 nav_exists=False
 #Insure wheather user added a nav bar or not if he didnt then it will add the close tag for head and open tag for body without adding any stylesheets used for the nav bar
 global footer_exists
 footer_exists=False
 #Insure wheather user added a footer or not if he didnt then it will add the close tag for head and open tag for body without adding any stylesheets used for the footer
+sidebar_nav_exists=False
+#Insure wheather user added a sidebar navigatin or not if he did then it will add the script that is neccesary for the working of toggle button
+
+nav=""
+f=""
 
 Name=input("Enter the Name of your site: ")
 title=Name
@@ -484,8 +486,6 @@ while True:
         Final.append(y)
         print("\nDone\n")
     elif a=="3":
-        global f
-        f=""
         f=navigation()
         print("\nDone\n")
         nav_exists=True
@@ -513,13 +513,18 @@ while True:
         j=len(Final)-2
         if Final[i]==Final[j]:
             Final.remove(Final[j])
+        wow=1
+        for i in Final:
+            print(wow)
+            wow=wow+1
+            print(i)
         if footer_exists==True:
-            x='''\t\t<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">\n'''
-            Final.insert(1, x)
+            y='''\t\t<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">\n'''
+            Final.insert(1, y)
         if nav_exists==False:
             x="\t</head>\n\t<body>"
             if footer_exists==True:
-                Final.insert(2, x)
+                Final.insert(2,x)
             else:
                 Final.insert(1, x)
         Z= open("index.html","a")
