@@ -1,3 +1,6 @@
+[LATEST]Reworking major part of code will update in a day or two
+
+
 #Hi i am currently working on fixing existing bugs and i will fix indentation after that i will start working on the blogging
 CMS i have decided that it will be branch which will be dedicated to bloging only and i will keep working on this as
 a regular site generator Cheers :D
@@ -5,10 +8,7 @@ a regular site generator Cheers :D
 LATEST WAZZUP:
 A minor bug caught while saving it will be fixed along with the version in which i will introduce basic editing [Will elaborate it later]                                    
 Start working on the option to edit code as well as adding new things to files created through previous sessions/executions[working]
-[DONE] Notes to self: add the toggle button in sidebar navigation in upcoming releases as soon as possible
-[DONE]Also add the footer feature in the stable version instead of test one also try to add as many social media hubs as possible[Adding more social media icons]
 
-Blogging feature is on hold i am currently trying to get in some more features 
 
 
 I am starting to see the limitation of CLI so while i am working on the code , i ve started looking into GUI
