@@ -72,10 +72,10 @@ def footer():
 \t\t\t\t\t</div>
 \t\t\t\t</div>
 \t\t\t</div>
-\t\t</footer>"""
+\t\t</footer>\n"""
             break
-        else:
-            print("\nWrong Input")
+    else:
+        print("\nWrong Input")
     return k
 
 def image():
@@ -109,8 +109,6 @@ h1,h2,h3,h4,h5,h6""")
 
 def end():
     global scroll_nav
-    global footer_exists
-    global foot
     c="""
 \t\t<!----------------Bootstrap core JavaScript------------------->
 \t\t<!--   ==================================================   -->
@@ -134,8 +132,6 @@ def end():
     c=c+"""
 \t</body>
 </html>"""
-    if footer_exists==True:
-        c=foot+c
     return c
 
 #As the name suggests its a module which simply gives a fixed code which is supposed to be merged to the end of all the other code
@@ -223,20 +219,18 @@ def navigation():
                 f=f+'\n\t\t\t\t\t<img src="images/"'+logo1+'" alt="">'
                 print("Great!!! all done now copy the image into the 'images' folder")
             f=f+"""\n\t\t\t\t\t<a class="navbar-brand" href="index.html">"""+Name+"""</a>
-    \t\t\t\t</div>
-    \t\t\t\t<div class="navbar-collapse collapse">
-    \t\t\t\t\t<ul class="nav navbar-nav">"""
+\t\t\t\t\t</div>
+\t\t\t\t\t<div class="navbar-collapse collapse">
+\t\t\t\t\t\t<ul class="nav navbar-nav">"""
             b=input("What is the name of first item(This will be your current page): ")
             b=str(b)
-            f=f+'''
-    \t\t\t\t\t\t<li class="active"><a href="index.html">'''+b+'''</a></li>\n'''
+            f=f+'''\n\t\t\t\t\t\t\t<li class="active"><a href="index.html">'''+b+'''</a></li>\n'''
             if z is not 1:
                 for i in range(1,z):
                     b=input("Please enter the name of item number "+str(i+1)+" : ")
                     b=str(b)
                     pages.append(b)
-                    f=f+'''
-\t\t\t\t\t\t<li><a href="'''+b+'''.html">'''+b+'''</a></li>\n'''
+                    f=f+'''\n\t\t\t\t\t\t\t<li><a href="'''+b+'''.html">'''+b+'''</a></li>\n'''
                     skeleton(b)
                 f=f+"""
 \t\t\t\t\t</ul>
@@ -395,14 +389,14 @@ def navigation():
             temp2=start()
             temp3.insert(0,temp2)
             # This will insert code till the head from the start appropriate to the code requested by the user
-            temp4 = open((temp+".html"),"a")
+            temp4 = open((temp+".html"),"w")
             for t in temp3:
                 temp4.write(t)
             temp4.close()
+    f=f+"\n"
     return f
 
-#This module is the most complex in the program it allows the user to make a navigation bar of thier choice right now the types of these navigation bars
-#are picked from the getbootstrap site though not all are included fixed the inter page relationship everything now works[HOPEFULLY]
+#This module is the most complex in the program it allows the user to make a navigation bar of thier choice right now the types of these navigation bars ,everything works[HOPEFULLY]
 
 def table(td,tr):
     y="""
@@ -426,7 +420,7 @@ def table(td,tr):
         y=y+"""
 \t\t\t</tr>"""
     y=y+"""       
-\t\t</table>"""
+\t\t</table>\n"""
     return y
 
 #This programs enables the end users to write tables in html as easy as it gets
@@ -512,21 +506,53 @@ while True:
                         i=i+1
         except IndexError:
             pass
+        w=0
         Z= open("index.html","w")
         Z.write(c)
-        Z.write(f)
-        w=0
-        for i in Final:
-            w=w+1
-            Z.write(i)
-        if sidebar_nav_exists==True:
-            if (w==0):
-                Z.write("\n\t\t</div>")
-            else:
+        if scroll_nav==True:
+            i=f.split("</h1>")
+            Z.write(i[0]+"</h1>")
+            for n in Final:
+                emp=n.split("\n")
+                for xz in emp:
+                    xz="\t\t\t\t"+xz
+                    Z.write(xz)
+                    if(w!=0 or w!=len(emp)-1):
+                        Z.write("\n")
+                    w=w+1
+            w=0
+            for m in i:
+                if w>0:
+                    Z.write(m)
+                w=w+1
+        else:
+            Z.write(f)
+            w=0
+            for i in Final:
+                if sidebar_nav_exists==True:
+                    emp=i.split("\n")
+                    for xz in emp:
+                        xz="\t"+xz
+                        Z.write(xz)
+                        if(w!=0 or w!=len(emp)-1):
+                            Z.write("\n")
+                        w=w+1
+                    w=0
+                    if footer_exists==True:
+                        emp=foot.split("\n")
+                        for xz in emp:
+                            xz="\t"+xz
+                            Z.write(xz)
+                            if(w!=0 or w!=len(emp)-1):
+                                Z.write("\n")
+                            w=w+1
+                if sidebar_nav_exists==False:
+                    if footer_exists==True:
+                        Z.write(foot)
+            if sidebar_nav_exists==True:
                 Z.write("\t\t</div>")
-        del w
         Z.write(x)
-        Z.close()
+        Z.close()   
         print("""------------------------------------------
 Done saving the document\n------------------------------------------""")
     elif a=="7":
