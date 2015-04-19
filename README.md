@@ -1,4 +1,4 @@
-boot-py
+BootPy
 =======
 I wanted to make a new CMS for experimenting purpose its still in its very early stages.
 where it manages to spurt out bootstrap embedded html code.It currently has some modules such as for paragraph and navigation etc.
