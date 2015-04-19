@@ -1,4 +1,7 @@
-[LATEST]Reworking major part of code will update in a day or two
+[LATEST]major part of code has been re wrote from scratch it has fixed alot of bugs still some bugs presists though but the approach is correct its
+just that the code needs more cleaning SEE YA NEXT TIME
+
+
 
 
 #Hi i am currently working on fixing existing bugs and i will fix indentation after that i will start working on the blogging
@@ -6,8 +9,10 @@ CMS i have decided that it will be branch which will be dedicated to bloging onl
 a regular site generator Cheers :D
 
 LATEST WAZZUP:
-A minor bug caught while saving it will be fixed along with the version in which i will introduce basic editing [Will elaborate it later]                                    
-Start working on the option to edit code as well as adding new things to files created through previous sessions/executions[working]
+A minor bug caught while saving it will be fixed [DONE]
+along with the version in which i will introduce basic editing [Will elaborate it later] [Still working on it]                                   
+Start working on the option to edit code as well as adding new things to files created through previous sessions/executions[Still working on it]   
+
 
 
 

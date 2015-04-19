@@ -109,6 +109,8 @@ h1,h2,h3,h4,h5,h6""")
 
 def end():
     global scroll_nav
+    global footer_exists
+    global foot
     c="""
 \t\t<!----------------Bootstrap core JavaScript------------------->
 \t\t<!--   ==================================================   -->
@@ -117,7 +119,7 @@ def end():
 \t\t<!-- jQuery -->
 \t\t<script src="js/jquery.js"></script>
 \t\t<script src="js/bootstrap.min.js"></script>"""
-    if(scroll_nav==False):
+    if(scroll_nav==True):
         c=c+"""
 \t\t<!-- Scrolling Nav JavaScript -->
 \t\t<script src="js/jquery.easing.min.js"></script>
@@ -132,6 +134,8 @@ def end():
     c=c+"""
 \t</body>
 </html>"""
+    if footer_exists==True:
+        c=foot+c
     return c
 
 #As the name suggests its a module which simply gives a fixed code which is supposed to be merged to the end of all the other code
@@ -148,9 +152,13 @@ def start():
 \t\t<!-- Latest compiled and minified CSS -->
 \t\t<link rel="stylesheet" href="css/bootstrap.min.css">
 \t\t<!-- Optional theme -->
-\t\t<link rel="stylesheet" href="css/bootstrap-theme.min.css">\n"""+nav
-    global f
-    c=c+f
+\t\t<link rel="stylesheet" href="css/bootstrap-theme.min.css">\n"""
+    if footer_exists==True:
+         c=c+'\t\t<!-- Footer CSS -->\t\t<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">\n'+nav
+    else:
+        c=c+nav
+    if nav_exists==False:
+       c=c+'\t</head>\n\t<body>'
     return c
 
 #It is a module which decides what to write in the head of the document depending upon the choice of the navigation bar if no navigation bar is chosen it will
@@ -158,7 +166,6 @@ def start():
 
 def navigation():
     global scroll_nav
-    scroll_nav=True
     global nav
     nav=""
     pages=[]
@@ -334,7 +341,7 @@ def navigation():
 \t\t\t</div>
 \t\t</nav>"""
             f=f+g
-            scroll_nav=False
+            scroll_nav=True
     elif a=="3":
         global sidebar_nav_exists
         sidebar_nav_exists=True
@@ -369,12 +376,11 @@ def navigation():
 \t\t\t</div>
 \t\t\t<a href="#menu-toggle" id="menu-toggle" class="btn btn-default">Toggle Menu
 \t\t\t\t<i class="fa fa-angle-double-down animated"></i>
-\t\t\t</a>
-\t\t</div>"""
+\t\t\t</a>"""
     else:
         print"Wrong input"
     #This part adds the same nav bar for the other pages as well
-    if (scroll_nav==True):
+    if (scroll_nav==False):
         for h in range(0,z-1):
             temp3=[]
             temp=pages[h]
@@ -403,7 +409,7 @@ def table(td,tr):
 \t\t<table class="table table-hover">
 \t\t\t<tr>"""
     for x in range(0,b):
-        z=raw_input("Enter heading for "+str(x+1)+" column: ")
+        z=raw_input("Enter heading for column number"+str(x+1)+":" )
         z="""
 \t\t\t\t<th>"""+z+"""</th>"""
         y=y+z
@@ -415,7 +421,7 @@ def table(td,tr):
         for p in range(0,td):
             y=y+"""
 \t\t\t\t<td>"""
-            y=y+raw_input("Enter value of cell at "+str(i)+" rows * "+str(p)+" columns: ")
+            y=y+raw_input("Enter value of cell at position ("+str(i)+","+str(p)+") columns: ")
             y="""\t"""+y+"""</td>"""
         y=y+"""
 \t\t\t</tr>"""
@@ -458,10 +464,8 @@ global Name
 #These are some variables that i use to manage all the code during execution of the program , like how to arrange , which to put in start and which in last
 
 scroll_nav=False
-global nav_exists
 nav_exists=False
 #Insure wheather user added a nav bar or not if he didnt then it will add the close tag for head and open tag for body without adding any stylesheets used for the nav bar
-global footer_exists
 footer_exists=False
 #Insure wheather user added a footer or not if he didnt then it will add the close tag for head and open tag for body without adding any stylesheets used for the footer
 sidebar_nav_exists=False
@@ -469,7 +473,7 @@ sidebar_nav_exists=False
 
 nav=""
 f=""
-
+foot=""
 Name=raw_input("Enter the Name of your site: ")
 title=Name
 while True:
@@ -479,11 +483,11 @@ while True:
         a=int(raw_input("Please enter the number of rows in your table: "))
         b=int(raw_input("Please enter the number of columns in your table: "))
         y=table(a,b)
-        Final.append(y)
+        Final.append(y)        
         print"\nDone\n"
     elif a=="2":
         y=paragraph()
-        Final.append(y)
+        Final.append(y)      
         print"\nDone\n"
     elif a=="3":
         f=navigation()
@@ -491,45 +495,37 @@ while True:
         nav_exists=True
     elif a=="4":
         y=image()
-        Final.append(y)
+        Final.append(y)      
         print"\nDone\n"
     elif a=="5":
-        y=footer()
-        Final.append(y)
+        foot=footer()
         print"\nDone\n"
         footer_exists=True
     elif a=="6":
         x=end()
-        Final.append(x)
         c=start()
-        Final.insert(0,c)
-        # This will insert code till the head from the start appropriate to the code requested by the user
-        for i in range(0,len(Final)-1):
-            for j in range(i+1,len(Final)-1):
-                if Final[j]==Final[i]:
-                    Final.remove(Final[j])
-                    i=i+1
-        i=len(Final)-1
-        j=len(Final)-2
-        if Final[i]==Final[j]:
-            Final.remove(Final[j])
-        wow=1
+        try:
+            for i in range(0,len(Final)-1):
+                for j in range(i+1,len(Final)-1):
+                    if Final[j]==Final[i]:
+                        Final.remove(Final[j])
+                        i=i+1
+        except IndexError:
+            pass
+        Z= open("index.html","w")
+        Z.write(c)
+        Z.write(f)
+        w=0
         for i in Final:
-            print(wow)
-            wow=wow+1
-            print(i)
-        if footer_exists==True:
-            y='''\t\t<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">\n'''
-            Final.insert(1, y)
-        if nav_exists==False:
-            x="\t</head>\n\t<body>"
-            if footer_exists==True:
-                Final.insert(2,x)
-            else:
-                Final.insert(1, x)
-        Z= open("index.html","a")
-        for i in Final:
+            w=w+1
             Z.write(i)
+        if sidebar_nav_exists==True:
+            if (w==0):
+                Z.write("\n\t\t</div>")
+            else:
+                Z.write("\t\t</div>")
+        del w
+        Z.write(x)
         Z.close()
         print"""------------------------------------------
 Done saving the document\n------------------------------------------"""
