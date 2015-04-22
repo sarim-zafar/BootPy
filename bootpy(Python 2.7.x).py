@@ -389,7 +389,7 @@ def navigation():
             temp2=start()
             temp3.insert(0,temp2)
             # This will insert code till the head from the start appropriate to the code requested by the user
-            temp4 = open((temp+".html"),"w")
+            temp4 = open((temp+".html"),"a")
             for t in temp3:
                 temp4.write(t)
             temp4.close()
@@ -403,7 +403,7 @@ def table(td,tr):
 \t\t<table class="table table-hover">
 \t\t\t<tr>"""
     for x in range(0,b):
-        z=raw_input("Enter heading for column number"+str(x+1)+":" )
+        z=raw_input("Enter heading for column number "+str(x+1)+":" )
         z="""
 \t\t\t\t<th>"""+z+"""</th>"""
         y=y+z
@@ -525,6 +525,7 @@ while True:
                 if w>0:
                     Z.write(m)
                 w=w+1
+            Z.write(foot)
         else:
             Z.write(f)
             w=0
