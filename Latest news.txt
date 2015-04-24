@@ -1,8 +1,4 @@
-[LATEST]After a major release its time for a major release again....i know but the last few commits are part of something bigger
-i dont know if i will build up on this revision or revise it again until i am sure i will keep fixing any kind of bug i run into
-major part of code has been re wrote from scratch it has fixed alot of bugsThere are some portions where
-when html is being written to the file it adds a gap of one line but i think thats kind of acceptable considering the progress
-over past few commits though it will be dealt soon in upcoming releases
+[LATEST]dealt with random qmpty line issues partially but still occurs whne using pill navs but no where else i will look into it later
 Will create a feature list soon
 
 it works :'D

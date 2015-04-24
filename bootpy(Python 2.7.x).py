@@ -1,6 +1,22 @@
 #I have tried to divided each module to work independently so that i can pinpoint errors easily i know that the variable names are not clear right now
 #but i plan on assigning them meaningfull names regarding to their purpose description of anything i deem neccessary is written below it if you still have an
 #issue please report
+def space_corrector(file):
+    temp=[]
+    try:
+        a= open(file+".html","r")
+        for x in a:
+            if x!="\n":
+                temp.append(x)
+        a.close()
+        a= open(file+".html","w")
+        for i in temp:
+            a.write(i)
+        a.close()
+    except IOError:
+        print("File doesnot exist")
+
+    
 def navigation():
     global sidebar_nav_exists
     sidebar_nav_exists=False
@@ -88,31 +104,31 @@ def navigation():
 def sidebar_nav(z,logo,pages,f):
     global Name
     f=f+"""
-    \t\t<div id="wrapper">
-    \t\t\t<div id="sidebar-wrapper">
-    \t\t\t\t<ul class="sidebar-nav">
-    \t\t\t\t\t<li class="sidebar-brand">
-    \t\t\t\t\t\t<a href="index.html">"""+Name+"""</a>
-    \t\t\t\t\t</li>"""
+\t\t<div id="wrapper">
+\t\t\t<div id="sidebar-wrapper">
+\t\t\t\t<ul class="sidebar-nav">
+\t\t\t\t\t<li class="sidebar-brand">
+\t\t\t\t\t\t<a href="index.html">"""+Name+"""</a>
+\t\t\t\t\t</li>"""
     b=str(raw_input("What is the name of first item(This will be your current page): "))
     f=f+'''
-    \t\t\t\t\t<li>
-    \t\t\t\t\t\t<a href="index.html">'''+b+'''</a>
-    \t\t\t\t\t</li>'''
+\t\t\t\t\t<li>
+\t\t\t\t\t\t<a href="index.html">'''+b+'''</a>
+\t\t\t\t\t</li>'''
     for i in range(1,z):
         b=str(raw_input("Please enter the name of item number "+str(i+1)+" : "))
         pages.append(b)
         f=f+'''
-    \t\t\t\t\t<li>
-    \t\t\t\t\t\t<a href="'''+b+'''.html">'''+b+'''</a>
-    \t\t\t\t\t</li>'''
+\t\t\t\t\t<li>
+\t\t\t\t\t\t<a href="'''+b+'''.html">'''+b+'''</a>
+\t\t\t\t\t</li>'''
         skeleton(b)
     f=f+"""
-    \t\t\t\t</ul>
-    \t\t\t</div>
-    \t\t\t<a href="#menu-toggle" id="menu-toggle" class="btn btn-default">Toggle Menu
-    \t\t\t\t<i class="fa fa-angle-double-down animated"></i>
-    \t\t\t</a>"""
+\t\t\t\t</ul>
+\t\t\t</div>
+\t\t\t<a href="#menu-toggle" id="menu-toggle" class="btn btn-default">Toggle Menu
+\t\t\t\t<i class="fa fa-angle-double-down animated"></i>
+\t\t\t</a>"""
     return f
 
 def Scrolling_nav(z,logo,f):
@@ -284,7 +300,7 @@ def footer():
 \t\t\t\t\t\t\t\t\t\t<i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
 \t\t\t\t\t\t\t\t\t</span>
 \t\t\t\t\t\t\t\t</a>
-\t\t\t\t\t\t\t</li>\n'''        
+\t\t\t\t\t\t\t</li>'''        
         if a==2:
             k=k+'''\n\t\t\t\t\t\t\t<li>
 \t\t\t\t\t\t\t\t<a href='''+x+'''>
@@ -293,7 +309,7 @@ def footer():
 \t\t\t\t\t\t\t\t\t\t<i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
 \t\t\t\t\t\t\t\t\t</span>
 \t\t\t\t\t\t\t\t</a>
-\t\t\t\t\t\t\t</li>\n'''
+\t\t\t\t\t\t\t</li>'''
         if a==3:
             k=k+'''\n\t\t\t\t\t\t\t<li>
 \t\t\t\t\t\t\t\t<a href='''+x+'''>
@@ -302,7 +318,7 @@ def footer():
 \t\t\t\t\t\t\t\t\t\t<i class="fa fa-github fa-stack-1x fa-inverse"></i>
 \t\t\t\t\t\t\t\t\t</span>
 \t\t\t\t\t\t\t\t</a>
-\t\t\t\t\t\t\t</li>\n'''
+\t\t\t\t\t\t\t</li>'''
         if a==4:
             k=k+'''\n\t\t\t\t\t\t\t<li>
 \t\t\t\t\t\t\t\t<a href='''+x+'''>
@@ -311,7 +327,7 @@ def footer():
 \t\t\t\t\t\t\t\t\t\t<i class="fa fa-google-plus fa-stack-1x fa-inverse"></i>
 \t\t\t\t\t\t\t\t\t</span>
 \t\t\t\t\t\t\t\t</a>
-\t\t\t\t\t\t\t</li>\n'''
+\t\t\t\t\t\t\t</li>'''
         if a==5:
              k=k+'''\n\t\t\t\t\t\t\t<li>
 \t\t\t\t\t\t\t\t<a href='''+x+'''>
@@ -320,7 +336,7 @@ def footer():
 \t\t\t\t\t\t\t\t\t\t<i class="fa fa-yahoo fa-stack-1x fa-inverse"></i>
 \t\t\t\t\t\t\t\t\t</span>
 \t\t\t\t\t\t\t\t</a>
-\t\t\t\t\t\t\t</li>\n'''
+\t\t\t\t\t\t\t</li>'''
         if a==6:
             k=k+'''\n\t\t\t\t\t\t\t<li>
 \t\t\t\t\t\t\t\t<a href='''+x+'''>
@@ -329,10 +345,10 @@ def footer():
 \t\t\t\t\t\t\t\t\t\t<i class="fa fa-reddit fa-stack-1x fa-inverse"></i>
 \t\t\t\t\t\t\t\t\t</span>
 \t\t\t\t\t\t\t\t</a>
-\t\t\t\t\t\t\t</li>\n'''
+\t\t\t\t\t\t\t</li>'''
         b=int(raw_input("Do you want to add more links:\n1)Yes\n2)No\nPlease Choose your option:"))
         if b==2:
-            k=k+"""\t\t\t\t\t\t\t<p class="copyright text-muted">Copyright &copy; """+Name+""" 2015</p>
+            k=k+"""\n\t\t\t\t\t\t\t<p class="copyright text-muted">Copyright &copy; """+Name+""" 2015</p>
 \t\t\t\t\t\t</ul>
 \t\t\t\t\t</div>
 \t\t\t\t</div>
@@ -374,7 +390,8 @@ h1,h2,h3,h4,h5,h6""")
 
 def end():
     global scroll_nav
-    c="""\t\t<!----------------Bootstrap core JavaScript------------------->
+    c="""
+\t\t<!----------------Bootstrap core JavaScript------------------->
 \t\t<!--   ==================================================   -->
 \t\t<!-- Placed at the end of the document so the pages load faster -->
 \t\t<!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -543,15 +560,15 @@ while True:
                 for xz in emp:
                     if xz!="":   
                         xz="\t\t\t\t"+xz
-                        Z.write(xz)
-                        if(w!=0 or w!=len(emp)-1):
-                            Z.write("\n")
+                        Z.write(xz+"\n")
                         w=w+1
                 w=0
-                for m in i:
-                    if w>0 and m!="":
-                        Z.write(m)
-                    w=w+1
+            for m in range(1,len(i)):
+                if w>0 and m!="":
+                    Z.write(i[m])
+                    if(m<len(i)-1):
+                        Z.write("</h1>")
+                w=w+1
             Z.write(foot)
         else:
             Z.write(f)  
@@ -592,7 +609,8 @@ while True:
             if sidebar_nav_exists==True:
                 Z.write("\t\t\t</div>\n")
         Z.write(x)
-        Z.close()   
+        Z.close()
+        space_corrector("index")
         print"""------------------------------------------
 Done saving the document\n------------------------------------------"""
     elif a=="7":
