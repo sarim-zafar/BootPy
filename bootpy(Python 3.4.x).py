@@ -1,6 +1,7 @@
 #I have tried to divided each module to work independently so that i can pinpoint errors easily i know that the variable names are not clear right now
 #but i plan on assigning them meaningfull names regarding to their purpose description of anything i deem neccessary is written below it if you still have an
 #issue please report
+
 def space_corrector(file):
     temp=[]
     try:
@@ -14,10 +15,11 @@ def space_corrector(file):
             a.write(i)
         a.close()
     except IOError:
-        print("File doesnot exist")
-
-    
+        print("File does not exist")
+        
 def navigation():
+    global transparent_fixed
+    transparent_fixed=False
     global sidebar_nav_exists
     sidebar_nav_exists=False
     global scroll_nav
@@ -45,34 +47,41 @@ def navigation():
         
     elif type_nav=="2":
         while True:
-            type_top=input("What kind of top nav bar do you want?\n1)Fixed\n2)Static\n3)Scrolling nav\nPlease Choose your option:")
-            if (type_nav=="1" or type_nav=="2" or type_nav=="3"):
+            type_top=input("What kind of top nav bar do you want?\n1)Fixed\n2)Static\n3)Scrolling nav\n4)Fixed(Transparent)\nPlease Choose your option:")
+            if (type_top=="1" or type_top=="2" or type_top=="3"or type_top=="4"):
                 break
             print("Wrong Input")
         type_top=int(type_top)
         if type_top==1:
             nav="""\t\t<link rel="stylesheet" href="css/navbar-fixed-top.css">
 \t</head>
-\t<body>"""
+\t<body>\n"""
             f=fixed_nav(z,logo,pages,f)
         elif type_top==2:
             nav="""\t\t<link rel="stylesheet" href="css/navbar-static-top.css">
 \t</head>
-\t<body>"""
+\t<body>\n"""
             f=Static_nav(z,logo,pages,f)
         elif type_top==3:
             scroll_nav=True
             nav="""\t\t<!-- Custom CSS -->
 \t\t<link href="css/scrolling-nav.css" rel="stylesheet">
 \t</head>
-\t<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">"""
+\t<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">\n"""
             f=Scrolling_nav(z,logo,f)
+        elif type_top==4:
+            transparent_fixed=True
+            nav="""\t\t<!--Custom CSS -->   
+\t\t<link href="css/transparent_fixed_navbar.css" rel="stylesheet">
+\t</head>
+\t<body>\n"""
+            f=transparent_fixed_navbar(z,logo,pages,f)
     elif type_nav=="3":
         sidebar_nav_exists=True
         nav="""\t\t<!--Custom CSS -->
 \t\t<link href="css/simple-sidebar.css" rel="stylesheet">
 \t</head>
-\t<body>"""
+\t<body>\n"""
         f=sidebar_nav(z,logo,pages,f)
     else:
         print("Wrong input")
@@ -100,31 +109,70 @@ def navigation():
 #print out a code without including the css file for any navigation bar
     f=f+"\n"
     return f
+def transparent_fixed_navbar(z,logo,pages,f):
+    pass
 
-def sidebar_nav(z,logo,pages,f):
+def transparent_fixed_navbar(z,logo,pages,f):
     global Name
-    f=f+"""
-\t\t<div id="wrapper">
-\t\t\t<div id="sidebar-wrapper">
-\t\t\t\t<ul class="sidebar-nav">
-\t\t\t\t\t<li class="sidebar-brand">
-\t\t\t\t\t\t<a href="index.html">"""+Name+"""</a>
-\t\t\t\t\t</li>"""
+    f=f+"""\t\t<!-- Navigation -->
+\t\t<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+\t\t\t<div class="container-fluid">
+\t\t\t\t<div class="navbar-header page-scroll">
+\t\t\t\t\t<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+\t\t\t\t\t\t<span class="sr-only">Toggle navigation</span>
+\t\t\t\t\t\t<span class="icon-bar"></span>
+\t\t\t\t\t\t<span class="icon-bar"></span>
+\t\t\t\t\t\t<span class="icon-bar"></span>
+\t\t\t\t\t</button>"""
+    if logo=="1":            
+        logo1=input("Enter the name of the image with extension(e.g image.jpg): ")
+        f=f+'\n\t\t\t\t\t<a href="index.html"><img src="images/'+logo1+'" alt=""></a>\n'
+        print("Great!!! all done now copy the image into the 'images' folder")
+        print("""Warning by adding a logo to the nav-bar you might end up make it look messy
+you can avoid/fix such issues by adding a logo with appropriate dimension""")
+    else:
+        f=f+"\n"
+    f=f+"""\t\t\t\t\t<a class="navbar-brand" href="index.html" style="color:black">"""+Name+"""</a>
+\t\t\t\t</div>
+\t\t\t\t<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+\t\t\t\t\t<ul class="nav navbar-nav navbar-right">"""
     b=str(input("What is the name of first item(This will be your current page): "))
-    f=f+'''
-\t\t\t\t\t<li>
-\t\t\t\t\t\t<a href="index.html">'''+b+'''</a>
-\t\t\t\t\t</li>'''
+    f=f+'''\t\t\t\t\t\t<li><a href="index.html" style="color:black">'''+str(b)+'''</a></li>'''
     for i in range(1,z):
         b=str(input("Please enter the name of item number "+str(i+1)+" : "))
         pages.append(b)
-        f=f+'''
-\t\t\t\t\t<li>
-\t\t\t\t\t\t<a href="'''+b+'''.html">'''+b+'''</a>
-\t\t\t\t\t</li>'''
+        f=f+'''\n\t\t\t\t\t\t<li><a href='''+b+'''.html style="color:black">'''+b+'''</a></li>'''
         skeleton(b)
     f=f+"""
-\t\t\t\t</ul>
+\t\t\t\t\t</ul>
+\t\t\t\t</div>
+\t\t\t</div>
+\t\t</nav>"""
+    return f
+
+def sidebar_nav(z,logo,pages,f):
+    global Name
+    f=f+"""\t\t<!-- Navigation -->
+\t\t<div id="wrapper">
+\t\t\t<div id="sidebar-wrapper">
+\t\t\t\t<ul class="sidebar-nav">"""
+    if logo=="1":            
+        logo1=input("Enter the name of the image with extension(e.g image.jpg): ")
+        f=f+'\n\t\t\t\t\t<a href="index.html"><img src="images/'+logo1+'" alt=""></a>\n'
+        print("Great!!! all done now copy the image into the 'images' folder")
+        print("""Warning by adding a logo to the nav-bar you might end up make it look messy
+you can avoid/fix such issues by adding a logo with appropriate dimension""") 
+    else:
+        f=f+"\n"
+    f=f+"""\t\t\t\t\t<li class="sidebar-brand"><a href="index.html">"""+Name+"""</a></li>\n"""
+    b=str(input("What is the name of first item(This will be your current page): "))
+    f=f+'''\t\t\t\t\t<li><a href="index.html">'''+b+'''</a></li>\n'''
+    for i in range(1,z):
+        b=str(input("Please enter the name of item number "+str(i+1)+" : "))
+        pages.append(b)
+        f=f+'''\n\t\t\t\t\t<li><a href="'''+b+'''.html">'''+b+'''</a></li>'''
+        skeleton(b)
+    f=f+"""\n\t\t\t\t</ul>
 \t\t\t</div>
 \t\t\t<a href="#menu-toggle" id="menu-toggle" class="btn btn-default">Toggle Menu
 \t\t\t\t<i class="fa fa-angle-double-down animated"></i>
@@ -134,22 +182,21 @@ def sidebar_nav(z,logo,pages,f):
 def Scrolling_nav(z,logo,f):
     global Name
     temp=""
-    f=f+"""
-\t\t<!-- Navigation -->
+    f=f+"""\t\t<!-- Navigation -->
 \t\t<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 \t\t\t<div class="container">
-\t\t\t\t<div class="navbar-header page-scroll">
+\t\t\t\t<div class="navbar-header page-scroll">"""
+    if logo=="1":
+        logo1=input("Enter the name of the image with extension(e.g image.jpg): ")
+        f=f+'\n\t\t\t\t\t<a href="index.html"><img src="images/'+logo1+'" alt=""></a>'
+        print("Great!!! all done now copy the image into the 'images' folder")            
+    f=f+"""
 \t\t\t\t\t<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
 \t\t\t\t\t\t<span class="sr-only">Toggle navigation</span>
 \t\t\t\t\t\t<span class="icon-bar"></span>
 \t\t\t\t\t\t<span class="icon-bar"></span>
 \t\t\t\t\t\t<span class="icon-bar"></span>
-\t\t\t\t\t</button>"""
-    if logo=="1":
-        logo1=input("Enter the name of the image with extension(e.g image.jpg): ")
-        f=f+'\n\t\t\t\t\t<img src="images/"'+logo1+'" alt="">'
-        print("Great!!! all done now copy the image into the 'images' folder")            
-    f=f+"""
+\t\t\t\t\t</button>
 \t\t\t\t\t<a class="navbar-brand page-scroll" href="#page-top">"""+Name+"""</a>
 \t\t\t\t</div>
 \t\t\t\t<!-- Collect the nav links, forms, and other content for toggling -->
@@ -157,7 +204,7 @@ def Scrolling_nav(z,logo,f):
 \t\t\t\t\t<ul class="nav navbar-nav">
 \t\t\t\t\t\t<li class="hidden"><a class="page-scroll" href="#page-top"></a></li>"""
     g=""
-    print("----------------Important message----------------\nPlease note that though three portions will be created only two will have tabs and the first portion will become your default or main page and you can access it by clicking on the site name\n----------------Important message----------------")
+    print("----------------Important message----------------\nPlease note that though n portions will be created only n-1 will have tabs and the first portion will become your default or main page and you can access it by clicking on the site name\n----------------Important message----------------")
     if z is not 1:
         g=""
         for i in range(0,z):
@@ -190,7 +237,7 @@ def Scrolling_nav(z,logo,f):
 
 def Static_nav(z,logo,pages,f):
     global Name
-    f=f+"""
+    f=f+"""\t\t<!-- Navigation -->
 \t\t<div class="navbar navbar-default" role="navigation">
 \t\t\t<div class="container-fluid">
 \t\t\t\t<div class="navbar-header">
@@ -202,7 +249,7 @@ def Static_nav(z,logo,pages,f):
 \t\t\t\t\t</button>"""
     if logo=="1":
         logo1=input("Enter the name of the image with extension(e.g image.jpg): ")
-        f=f+'\n\t\t\t\t\t<img src="images/"'+logo1+'" alt="">'
+        f=f+'\n\t\t\t\t\t<a href="index.html"><img src="images/'+logo1+'" alt=""></a>'
         print("Great!!! all done now copy the image into the 'images' folder")
     f=f+"""
 \t\t\t\t\t<a class="navbar-brand" href="index.html">"""+Name+"""</a>
@@ -227,8 +274,8 @@ def Static_nav(z,logo,pages,f):
         return f
     
 def fixed_nav(z,logo,pages,f):
-    f=f+"""
-\t\t<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    f=f+"""\t\t<!-- Navigation -->
+\t\t<div class="navbar navbar-default navbar-fixed-top" role="navigation">
 \t\t\t<div class="container">
 \t\t\t\t<div class="navbar-header">
 \t\t\t\t\t<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
@@ -239,7 +286,7 @@ def fixed_nav(z,logo,pages,f):
 \t\t\t\t\t</button>"""
     if logo=="1":
         logo1=input("Enter the name of the image with extension(e.g image.jpg): ")
-        f=f+'\n\t\t\t\t\t<img src="images/"'+logo1+'" alt="">'
+        f=f+'\n\t\t\t\t\t<a href="index.html"><img src="images/'+logo1+'" alt=""></a>'
         print("Great!!! all done now copy the image into the 'images' folder")
     f=f+"""\n\t\t\t\t\t<a class="navbar-brand" href="index.html">"""+Name+"""</a>
 \t\t\t\t</div>
@@ -267,13 +314,14 @@ def pills_nav(z,pages,logo):
         x=' nav class="nav nav-pills"'
     elif y=="2":
         x=' nav class="nav nav-pills nav-stacked"'
+    if logo=="1":
+        logo1=input("Enter the name of the image with extension(e.g image.jpg): ")
+        print("Great!!! all done now copy the image into the 'images' folder")
     b=str(input("What is the name of first item(This will be your current page): "))
     f='\t</head>\n\t<body>\n\t\t<ul '+str(x)+'>\n'
     if logo=="1":
-        logo1=input("Enter the name of the image with extension(e.g image.jpg): ")
-        f=f+'\t\t\t<img src="images/"'+logo1+'" alt="">'
-        print("Great!!! all done now copy the image into the 'images' folder")
-    f=f+'\t\t\t<li class="active"><a href="index.html">'+b+'</a></li>'
+        f=f+'\t\t\t<a href="index.html"><img src="images/'+logo1+'" alt=""></a>'
+    f=f+'\n\t\t\t<li class="active"><a href="index.html">'+b+'</a></li>'
     if z is not 1:
         for i in range(1,z):
             b=str(input("Please enter the name of item number "+str(i+1)+" : "))
@@ -377,7 +425,6 @@ def image():
     print("Great!!! all done now copy the image into the 'images' folder")
     return z
 
-
 def paragraph():
     print("""How big you want the text to be with 'h1' being biggest to 'h6' being the smallest
 h1,h2,h3,h4,h5,h6""")
@@ -410,6 +457,8 @@ def end():
 \t\t\t\t$("#wrapper").toggleClass("toggled");
 \t\t\t});
 \t\t</script>"""
+    if(transparent_fixed==True):
+        c=c+'\n\t\t<script src="js/transparent_fixed_navbar.js"></script>'
     c=c+"""
 \t</body>
 </html>"""
@@ -498,14 +547,15 @@ global title
 #it will name the document as the user input which will appear in the tab
 global Name
 #These are some variables that i use to manage all the code during execution of the program , like how to arrange , which to put in start and which in last
-
+transparent_fixed=False
+#Insure wheather user added a transparent fixed navigation or not if he did then it will add the script that is neccesary for the working of navigation
 scroll_nav=False
 nav_exists=False
 #Insure wheather user added a nav bar or not if he didnt then it will add the close tag for head and open tag for body without adding any stylesheets used for the nav bar
 footer_exists=False
 #Insure wheather user added a footer or not if he didnt then it will add the close tag for head and open tag for body without adding any stylesheets used for the footer
 sidebar_nav_exists=False
-#Insure wheather user added a sidebar navigatin or not if he did then it will add the script that is neccesary for the working of toggle button
+#Insure wheather user added a sidebar navigation or not if he did then it will add the script that is neccesary for the working of toggle button
 
 nav=""
 f=""
@@ -564,13 +614,14 @@ while True:
                         w=w+1
                 w=0
             for m in range(1,len(i)):
-                if w>0 and m!="":
+                if w>=0 and m!="":
                     Z.write(i[m])
                     if(m<len(i)-1):
                         Z.write("</h1>")
                 w=w+1
             Z.write(foot)
         else:
+            f=f.strip()
             Z.write(f)  
             w=0
             if sidebar_nav_exists==True:
@@ -578,7 +629,7 @@ while True:
                     emp=i.split("\n")
                     for xz in emp:
                         if xz!="":   
-                            xz="\t\t"+xz
+                            xz="\t"+xz
                             Z.write(xz)
                             if(w!=0 or w!=len(emp)-1):
                                 Z.write("\n")
@@ -589,7 +640,7 @@ while True:
                     emp=foot.split("\n")
                     for xz in emp:
                         if xz!="":                  
-                            xz="\t\t"+xz
+                            xz="\t"+xz
                             Z.write(xz)
                             if(w!=0 or w!=len(emp)-1):
                                 Z.write("\n")
@@ -607,7 +658,7 @@ while True:
                 if footer_exists==True:
                     Z.write(foot)
             if sidebar_nav_exists==True:
-                Z.write("\t\t\t</div>\n")
+                Z.write("\n\t\t</div>\n")
         Z.write(x)
         Z.close()
         space_corrector("index")

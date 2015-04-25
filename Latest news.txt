@@ -1,25 +1,23 @@
-[LATEST]dealt with random qmpty line issues partially but still occurs whne using pill navs but no where else i will look into it later
-Will create a feature list soon
+[LATEST]
+Added a transparent Fixed nav bar if you scroll down it disappears by moving upward but on any point if you scroll up even a bit 
+you will see it re-appears on the top
+Fixed some bugs in navigation regarding logo's and etc
+
+Fixed the random empty line issue now i will probably start on adding more options also i might try to clean up the code and make it alot
+cleaner
 
 it works :'D
-
-
-
-
 
 #Hi i am currently working on fixing existing bugs and i will fix indentation after that i will start working on the blogging
 CMS i have decided that it will be branch which will be dedicated to bloging only and i will keep working on this as
 a regular site generator Cheers :D
 
 LATEST WAZZUP:
-A minor bug caught while saving it will be fixed [DONE]
  i will introduce basic editing such as editing a file you created in before and now want to edit it yeah cool stuff but challenging as well 
 though hardly an obstacle Start working on the option to edit code as well as adding new things to files created through previous 
 sessions/executions[Still working on it]  
 
  This to become full fledged Soon enough i hope within two years [Still working on it]                                   
-
-
 
 
 I am starting to see the limitation of CLI so while i am working on the code , i ve started looking into GUI
