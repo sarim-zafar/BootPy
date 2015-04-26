@@ -1,4 +1,6 @@
 [LATEST]
+Added transparent  scrolling nav now onto fixing/finding bugs then move onto editing :D
+
 Added a transparent Fixed nav bar if you scroll down it disappears by moving upward but on any point if you scroll up even a bit 
 you will see it re-appears on the top
 Fixed some bugs in navigation regarding logo's and etc

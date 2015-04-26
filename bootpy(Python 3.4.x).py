@@ -18,6 +18,8 @@ def space_corrector(file):
         print("File does not exist")
         
 def navigation():
+    global transparent_scroll
+    transparent_scroll=False
     global transparent_fixed
     transparent_fixed=False
     global sidebar_nav_exists
@@ -47,11 +49,11 @@ def navigation():
         
     elif type_nav=="2":
         while True:
-            type_top=input("What kind of top nav bar do you want?\n1)Fixed\n2)Static\n3)Scrolling nav\n4)Fixed(Transparent)\nPlease Choose your option:")
-            if (type_top=="1" or type_top=="2" or type_top=="3"or type_top=="4"):
+            type_top=input("What kind of top nav bar do you want?\n1)Fixed\n2)Static\n3)Scrolling nav\n4)Fixed(Transparent)\n5)Scrolling nav(Transparent)\nPlease Choose your option:")
+            type_top=int(type_top)
+            if (type_top>=1 and type_top<=5 ):
                 break
             print("Wrong Input")
-        type_top=int(type_top)
         if type_top==1:
             nav="""\t\t<link rel="stylesheet" href="css/navbar-fixed-top.css">
 \t</head>
@@ -75,7 +77,15 @@ def navigation():
 \t\t<link href="css/transparent_fixed_navbar.css" rel="stylesheet">
 \t</head>
 \t<body>\n"""
-            f=transparent_fixed_navbar(z,logo,pages,f)
+        elif type_top==5:
+            transparent_scroll=True
+            nav="""\t\t<!-- Plugin CSS -->
+\t\t<link rel="stylesheet" href="css/animate.min.css" type="text/css">
+\t\t<!-- Custom CSS -->
+\t\t<link rel="stylesheet" href="css/creative.css" type="text/css">
+\t</head>
+\t<body id="page-top">\n"""
+            f=transparent_scroll_navbar(z,logo,f)
     elif type_nav=="3":
         sidebar_nav_exists=True
         nav="""\t\t<!--Custom CSS -->
@@ -86,7 +96,7 @@ def navigation():
     else:
         print("Wrong input")
     #This part adds the same nav bar for the other pages as well
-    if (scroll_nav==False):
+    if (scroll_nav==False and transparent_scroll==False):
         for h in range(0,z-1):
             temp3=[]
             temp=pages[h]
@@ -109,8 +119,62 @@ def navigation():
 #print out a code without including the css file for any navigation bar
     f=f+"\n"
     return f
-def transparent_fixed_navbar(z,logo,pages,f):
-    pass
+def transparent_scroll_navbar(z,logo,f):
+    global Name
+    f=f+"""\n\t\t<!-- Navigation -->
+\t\t<nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+\t\t\t<div class="container-fluid">
+\t\t\t\t<!-- Brand and toggle get grouped for better mobile display -->
+\t\t\t\t<div class="navbar-header">
+\t\t\t\t\t<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+\t\t\t\t\t\t<span class="sr-only">Toggle navigation</span>
+\t\t\t\t\t\t<span class="icon-bar"></span>
+\t\t\t\t\t\t<span class="icon-bar"></span>
+\t\t\t\t\t\t<span class="icon-bar"></span>
+\t\t\t\t\t</button>
+"""
+    if logo=="1":            
+        logo1=input("Enter the name of the image with extension(e.g image.jpg): ")
+        f=f+'\n\t\t\t\t\t\t<a href="index.html"><img src="images/'+logo1+'" alt=""></a>\n'
+        print("Great!!! all done now copy the image into the 'images' folder")
+        print("""Warning by adding a logo to the nav-bar you might end up make it look messy
+you can avoid/fix such issues by adding a logo with appropriate dimension""")
+    f=f+"""\t\t\t\t\t<a class="navbar-brand page-scroll" href="#page-top" style="color:black">"""+Name+"""</a>
+\t\t\t\t</div>
+\t\t\t\t<!-- Collect the nav links, forms, and other content for toggling -->
+\t\t\t\t<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+\t\t\t\t\t<ul class="nav navbar-nav navbar-right">"""
+    g=""
+    print("----------------Important message----------------\nPlease note that though n portions will be created only n-1 will have tabs and the first portion will become your default or main page and you can access it by clicking on the site name\n----------------Important message----------------")
+    if z is not 1:
+        g=""
+        for i in range(0,z):
+            b=str(input("Please enter the name of item number "+str(i+1)+" : "))
+            temp=b.split(" ")
+            g=g+'''
+\t\t<!-- '''+b+''' Section -->'''
+            g=g+'''
+\t\t<section id="'''+(temp[0])+'''" class="contact-section">'''
+            g=g+"""
+\t\t\t<div class="container">
+\t\t\t\t<div class="row">
+\t\t\t\t\t<div class="col-lg-12">
+\t\t\t\t\t\t<h1>"""+b+""" section</h1>
+\t\t\t\t\t</div>
+\t\t\t\t</div>
+\t\t\t</div>
+\t\t</section>"""
+            temp=b.split(" ")
+            if i is not 0:
+                f=f+'''              
+\t\t\t\t\t\t<li><a class="page-scroll" href="#'''+(temp[0])+'''" style="color:black">'''+b+'''</a></li>'''
+    f=f+"""               
+\t\t\t\t\t</ul>
+\t\t\t\t</div>
+\t\t\t</div>
+\t\t</nav>"""
+    f=f+g
+    return f
 
 def transparent_fixed_navbar(z,logo,pages,f):
     global Name
@@ -459,12 +523,20 @@ def end():
 \t\t</script>"""
     if(transparent_fixed==True):
         c=c+'\n\t\t<script src="js/transparent_fixed_navbar.js"></script>'
+    if(transparent_scroll==True):
+        c=c+"""
+\t\t<!-- Plugin JavaScript -->
+\t\t<script src="js/jquery.easing.min.js"></script>
+\t\t<!-- Plugin JavaScript -->
+\t\t<script src="js/jquery.fittext.js"></script>
+\t\t<!-- Custom Theme JavaScript -->
+\t\t<script src="js/creative.js"></script>"""
     c=c+"""
 \t</body>
 </html>"""
     return c
 
-#As the name suggests its a module which simply gives a fixed code which is supposed to be merged to the end of all the other code
+#As the name suggests its a module which simply gives a fixed code which is supposed to be merged to the end of all the other Code
 
 def start():
     global nav
@@ -476,12 +548,13 @@ def start():
 \t\t<meta name="viewport" content="width=device-width, initial-scale=1">
 \t\t<title>"""+str(title)+"""</title>
 \t\t<!-- Latest compiled and minified CSS -->
-\t\t<link rel="stylesheet" href="css/bootstrap.min.css">
-\t\t<!-- Optional theme -->
-\t\t<link rel="stylesheet" href="css/bootstrap-theme.min.css">\n"""
+\t\t<link rel="stylesheet" href="css/bootstrap.min.css">\n"""
     if footer_exists==True:
-         c=c+'\t\t<!-- Footer CSS -->\n\t\t<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">\n'+nav
+         c=c+'\n\t\t<!-- Optional theme -->\n\t\t<link rel="stylesheet" href="css/bootstrap-theme.min.css">\n\t\t<!-- Footer CSS -->\n\t\t<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">\n'+nav
+    elif transparent_scroll==True:
+        c=c+'\n\t\t<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">\n'+nav
     else:
+        c=c+'\n\t\t<!-- Optional theme -->\n\t\t<link rel="stylesheet" href="css/bootstrap-theme.min.css">\n'
         c=c+nav
     if nav_exists==False:
        c=c+'\t</head>\n\t<body>'
@@ -556,6 +629,7 @@ footer_exists=False
 #Insure wheather user added a footer or not if he didnt then it will add the close tag for head and open tag for body without adding any stylesheets used for the footer
 sidebar_nav_exists=False
 #Insure wheather user added a sidebar navigation or not if he did then it will add the script that is neccesary for the working of toggle button
+transparent_scroll=False
 
 nav=""
 f=""
@@ -602,7 +676,7 @@ while True:
         w=0
         Z= open("index.html","w")
         Z.write(c)
-        if scroll_nav==True:
+        if scroll_nav==True or transparent_scroll==True:
             i=f.split("</h1>")
             Z.write(i[0]+"</h1>")
             for n in Final:
