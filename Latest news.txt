@@ -14,7 +14,6 @@ it works :'D
 CMS i have decided that it will be branch which will be dedicated to bloging only and i will keep working on this as
 a regular site generator Cheers :D
 
-LATEST WAZZUP:
  i will introduce basic editing such as editing a file you created in before and now want to edit it yeah cool stuff but challenging as well 
 though hardly an obstacle Start working on the option to edit code as well as adding new things to files created through previous 
 sessions/executions[Still working on it]  

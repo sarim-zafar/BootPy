@@ -119,6 +119,7 @@ def navigation():
 #print out a code without including the css file for any navigation bar
     f=f+"\n"
     return f
+
 def transparent_scroll_navbar(z,logo,f):
     global Name
     f=f+"""\n\t\t<!-- Navigation -->
@@ -549,10 +550,10 @@ def start():
 \t\t<title>"""+str(title)+"""</title>
 \t\t<!-- Latest compiled and minified CSS -->
 \t\t<link rel="stylesheet" href="css/bootstrap.min.css">\n"""
-    if footer_exists==True:
-         c=c+'\n\t\t<!-- Optional theme -->\n\t\t<link rel="stylesheet" href="css/bootstrap-theme.min.css">\n\t\t<!-- Footer CSS -->\n\t\t<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">\n'+nav
-    elif transparent_scroll==True:
-        c=c+'\n\t\t<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">\n'+nav
+    if footer_exists==True or transparent_scroll==True:
+        c=c+'\n\t\t<!-- Footer CSS -->\n\t\t<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">\n'+nav
+        if transparent_scroll==False:
+            c='\n\t\t<!-- Optional theme -->\n\t\t<link rel="stylesheet" href="css/bootstrap-theme.min.css">'+c   
     else:
         c=c+'\n\t\t<!-- Optional theme -->\n\t\t<link rel="stylesheet" href="css/bootstrap-theme.min.css">\n'
         c=c+nav
@@ -661,7 +662,6 @@ while True:
         foot=footer()
         print("\nDone\n")
         footer_exists=True
-        print(footer_exists)
     elif a=="6":
         x=end()
         c=start()
@@ -736,13 +736,11 @@ while True:
         Z.write(x)
         Z.close()
         space_corrector("index")
-        print("""------------------------------------------
-Done saving the document\n------------------------------------------""")
+        print("""------------------------------------------\nDone saving the document\n------------------------------------------""")
     elif a=="7":
         break
     else:
-        print("Wrong Input")
-        print("\n")
+        print("Wrong Input\n")
 #Notes for the current program which will be updated upon each new revision:
 #This is a very dumb code write now but i plan on enhancing it i will try to release newer version as fast i can.
 #Right now my goal is to work on adding more modules neccessary and integrating them inteligently,
