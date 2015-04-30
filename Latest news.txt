@@ -1,4 +1,6 @@
 [LATEST]
+Updated comments in the program appropriatly
+
 Added transparent  scrolling nav now onto fixing/finding bugs then move onto editing :D
 
 Added a transparent Fixed nav bar if you scroll down it disappears by moving upward but on any point if you scroll up even a bit 

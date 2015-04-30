@@ -1,22 +1,25 @@
 #I have tried to divided each module to work independently so that i can pinpoint errors easily i know that the variable names are not clear right now
-#but i plan on assigning them meaningfull names regarding to their purpose description of anything i deem neccessary is written below it if you still have an
-#issue please report
+#but i plan on assigning them meaningfull names regarding to their purpose.Description of anything i deem neccessary is written below it if you still have an
+#issue please report/contact me
 
+#removes extra spaces in between html code
 def space_corrector(file):
     temp=[]
     try:
-        a= open(file+".html","r")
-        for x in a:
-            if x!="\n":
-                temp.append(x)
-        a.close()
-        a= open(file+".html","w")
-        for i in temp:
-            a.write(i)
-        a.close()
+        final_file= open(file+".html","r")
+        for elements in final_file:
+            if elements!="\n":
+                temp.append(elements)
+        final_file.close()
+        final_file= open(file+".html","w")
+        for elements in temp:
+            final_file.write(elements)
+        final_file.close()
     except IOError:
         print("File does not exist")
         
+#This function calls other various functions which generate code for their respective nvaigations bars
+#It acts as a hub for all those function and helps me avoid creating alot of mess in just one function
 def navigation():
     global transparent_scroll
     transparent_scroll=False
@@ -30,10 +33,18 @@ def navigation():
     nav=""
     pages=[]
     temp=""
+    
+    #This asks the user how many items does he/she require
+    #in most cases it will create pages with those names and copy
+    #the same nav bar code to them
     z=raw_input("How many items do you want in your menu: ")
     z=int(z)
     f=""
     while True:
+        
+        #Asks if the user would like to add a logo to the navigation bar alongside the name of the website works pretty neat
+        #but only if the dimensions of the logo added a re appropriate it will mess up the body of nav bar if you add logo
+        #with big dimensions
         logo=raw_input("Do you want to add a logo to the navigation bar?\n1)Yes\n2)No\nPlease Choose your option:")
         if(logo=="1" or logo=="2"):
             break
@@ -95,7 +106,8 @@ def navigation():
         f=sidebar_nav(z,logo,pages,f)
     else:
         print"Wrong input"
-    #This part adds the same nav bar for the other pages as well
+        
+    #This part adds the same nav bar for the other pages that user as well
     if (scroll_nav==False and transparent_scroll==False):
         for h in range(0,z-1):
             temp3=[]
@@ -110,16 +122,20 @@ def navigation():
             temp3.append(temp1)
             temp2=start()
             temp3.insert(0,temp2)
+            
             # This will insert code till the head from the start appropriate to the code requested by the user
             temp4 = open((temp+".html"),"w")
             for t in temp3:
                 temp4.write(t)
             temp4.close()
+            
 #It is a module which decides what to write in the head of the document depending upon the choice of the navigation bar if no navigation bar is chosen it will
 #print out a code without including the css file for any navigation bar
     f=f+"\n"
     return f
 
+#this is one of the sub modules for the navigation function it simply generates the code for its relevant nav bar and turns on any flag if required
+#this nav doesnot creaate extra pages as its basic idea is for it to be used a single page site hence scrolling nav 
 def transparent_scroll_navbar(z,logo,f):
     global Name
     f=f+"""\n\t\t<!-- Navigation -->
@@ -177,6 +193,7 @@ you can avoid/fix such issues by adding a logo with appropriate dimension""")
     f=f+g
     return f
 
+#this is one of the sub modules for the navigation function it simply generates the code for its relevant nav bar and turns on a specific flag if required
 def transparent_fixed_navbar(z,logo,pages,f):
     global Name
     f=f+"""\t\t<!-- Navigation -->
@@ -215,6 +232,7 @@ you can avoid/fix such issues by adding a logo with appropriate dimension""")
 \t\t</nav>"""
     return f
 
+#this is one of the sub modules for the navigation function it simply generates the code for its relevant nav bar and turns on a specific flag if required
 def sidebar_nav(z,logo,pages,f):
     global Name
     f=f+"""\t\t<!-- Navigation -->
@@ -244,6 +262,8 @@ you can avoid/fix such issues by adding a logo with appropriate dimension""")
 \t\t\t</a>"""
     return f
 
+#this is one of the sub modules for the navigation function it simply generates the code for its relevant nav bar and turns on any flag if required
+#this nav doesnot creaate extra pages as its basic idea is for it to be used a single page site hence scrolling nav 
 def Scrolling_nav(z,logo,f):
     global Name
     temp=""
@@ -300,6 +320,7 @@ def Scrolling_nav(z,logo,f):
     f=f+g
     return f
 
+#this is one of the sub modules for the navigation function it simply generates the code for its relevant nav bar and turns on a specific flag if required
 def Static_nav(z,logo,pages,f):
     global Name
     f=f+"""\t\t<!-- Navigation -->
@@ -338,6 +359,7 @@ def Static_nav(z,logo,pages,f):
 \t\t</div>"""
         return f
     
+#this is one of the sub modules for the navigation function it simply generates the code for its relevant nav bar and turns on a specific flag if required
 def fixed_nav(z,logo,pages,f):
     f=f+"""\t\t<!-- Navigation -->
 \t\t<div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -372,6 +394,7 @@ def fixed_nav(z,logo,pages,f):
 \t\t</div>"""
         return f
     
+#this is one of the sub modules for the navigation function it simply generates the code for its relevant nav bar 
 def pills_nav(z,pages,logo):
     y=raw_input("What kind of menu do you want:\n1) Horizontal\n2) Vertical\nPlease Choose your option:")
     y=str(y)
@@ -396,6 +419,9 @@ def pills_nav(z,pages,logo):
     f=f+'\n\t\t</ul>'
     return f
 
+#This function generates code for footer of the website right now its
+#limited to one style and a limited(only 6 at the time of writing) sites
+#that you can link it to
 def footer():
     k="""\n\t\t<footer>
 \t\t\t<div class="container">
@@ -472,6 +498,7 @@ def footer():
         print("\nWrong Input")
     return k
 
+# generates code for image tag and returns all of the code in the variable returned
 def image():
     b=raw_input("Enter the name of the image with extension(e.g image.jpg): ")
     while True:
@@ -490,6 +517,7 @@ def image():
     print("Great!!! all done now copy the image into the 'images' folder")
     return z
 
+#generates code for headings
 def paragraph():
     print("""How big you want the text to be with 'h1' being biggest to 'h6' being the smallest
 h1,h2,h3,h4,h5,h6""")
@@ -498,8 +526,7 @@ h1,h2,h3,h4,h5,h6""")
     z="\n\t\t<"+y+">"+x+"</"+y+">\n"
     return z
 
-#This is a simple pragraph module which spurts out a simple paragraph in html the user can decide the size 
-
+#generates code that is placed at the end of file whcih includes the jquery/jscript links neccessary for the working of the code
 def end():
     global scroll_nav
     c="""
@@ -537,8 +564,7 @@ def end():
 </html>"""
     return c
 
-#As the name suggests its a module which simply gives a fixed code which is supposed to be merged to the end of all the other Code
-
+#generates code which is placeed at the start of the file which includes the head of the html documents
 def start():
     global nav
     c="""<!DOCTYPE html>
@@ -561,8 +587,7 @@ def start():
        c=c+'\t</head>\n\t<body>'
     return c
 
-#This module is the most complex in the program it allows the user to make a navigation bar of thier choice right now the types of these navigation bars ,everything works[HOPEFULLY]
-
+#generates code for a table written in html by getting input from the user
 def table(td,tr):
     y="""
 \t\t<table class="table table-hover">
@@ -588,16 +613,14 @@ def table(td,tr):
 \t\t</table>\n"""
     return y
 
-#This programs enables the end users to write tables in html as easy as it gets
-
+#A simple menu function for enabling the user to choose the feature they want to use
 def menu():
     print("What do you want to do first:\n1) Generate a table \n2) Generate a paragraph \n3) Generate a navigation menu\n4) Add an Image\n5) Add an Footer\n6)Save the document\n7)Exit")
     y=raw_input("Please Choose your option:")
     y=str(y)
     return y
 
-#A simple menu function for enabling the user to choose the feature they want to use
-
+#creates the file in directory to which all of the data is to be written
 def skeleton(y):
     try:
         a= open(y+".html","r")
@@ -607,37 +630,54 @@ def skeleton(y):
         a= open(y+".html","w")
         a.close()
         
-#This function generates a html file if one by the name already does not exist
-#The program starts here        
+#The main program starts here        
 print'\t\tWelcome to our Website for noobs program\n'
+
+#creates the file
 skeleton("index")
-Final=[]
 
 #An array which hosts the text spitted out by various modules and i plan on using techniques so that it can arrange what text to place where intelegently
 # What happens from here is quite self explanatory we call functions by passing appropriate variables and they return us code which we add to the array
-# and in the end the program arranges the code ie putting the code from start function on the start of the program and end function to end
+# and in the end the program arranges the code i.e putting the code from start function on the start of the program and end function to end
 # and writes it all in a file
+Final=[]
+
+#it will name the document as the user input which will appear in the tab in the browser
 global title
-#it will name the document as the user input which will appear in the tab
+#the name of the website is stored here
 global Name
+
 #These are some variables that i use to manage all the code during execution of the program , like how to arrange , which to put in start and which in last
-transparent_fixed=False
 #Insure wheather user added a transparent fixed navigation or not if he did then it will add the script that is neccesary for the working of navigation
+transparent_fixed=False
+
+#Insure wheather user added a  scroll navigation or not if he did then it will add the script that is neccesary for the working of navigation
 scroll_nav=False
+
+#Insure wheather user added a nav bar or not if he didnt then it will add the close tag for head and open tag for body without adding
+#any stylesheets used for the navigation bar
 nav_exists=False
-#Insure wheather user added a nav bar or not if he didnt then it will add the close tag for head and open tag for body without adding any stylesheets used for the nav bar
-footer_exists=False
+
 #Insure wheather user added a footer or not if he didnt then it will add the close tag for head and open tag for body without adding any stylesheets used for the footer
-sidebar_nav_exists=False
+footer_exists=False
+
 #Insure wheather user added a sidebar navigation or not if he did then it will add the script that is neccesary for the working of toggle button
+sidebar_nav_exists=False
+
+#Insure wheather user added a  transparent scroll navigation or not if he did then it will add the script that is neccesary for the working of navigation
 transparent_scroll=False
 
+#some other global variables
 nav=""
 f=""
 foot=""
 Name=raw_input("Enter the Name of your site: ")
 title=Name
+
+#iterates until the user specifies if he/she wants to exit the program
 while True:
+    
+    #prints the main menu of the program
     a=menu()
     if a=="1":
         z=[]
@@ -663,6 +703,8 @@ while True:
         print"\nDone\n"
         footer_exists=True
     elif a=="6":
+        #Extremely poorly written code i will revise it once i get to it
+        #i will rewrite most of this code and place it in a function
         x=end()
         c=start()
         try:
@@ -741,6 +783,7 @@ while True:
         break
     else:
         print "Wrong Input\n"
+        
 #Notes for the current program which will be updated upon each new revision:
 #This is a very dumb code write now but i plan on enhancing it i will try to release newer version as fast i can.
 #Right now my goal is to work on adding more modules neccessary and integrating them inteligently,
