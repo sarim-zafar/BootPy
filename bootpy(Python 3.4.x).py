@@ -517,8 +517,56 @@ def image():
     print("Great!!! all done now copy the image into the 'images' folder")
     return z
 
-#generates code for headings
+#generates a custom paragraph
 def paragraph():
+    opt=int(input("Do you want to add a heading to the paragrah\n1)Yes\n2)No\nSelect an option:"))
+    h=""
+    if opt==1:
+        h=heading()
+        Final.append(" \n"+h)
+        print("All done")
+    elif opt==2:
+        pass
+    else:
+        print("Wrong Input\nPlease try again")
+        return "\n" 
+    opt=int(input("""Please select the format in which you want to write the paragraph:
+1)Normal
+2)Italics
+3)Bold
+Select an option:"""))
+    if opt==1:
+        y="p"
+    elif opt==2:
+        y="em"
+    elif opt==3:
+         y="strong"
+    else:
+        print("Wrong Input\nPlease try again")
+        return "\n" 
+    opt1=int(input("""Please select the Alignment of the in which you want to write the paragraph:
+1)Left
+2)Center
+3)Right
+Select an option:"""))
+    if opt1==1:
+        x=' class="text-left"'
+    elif opt1==2:
+        x=' class="text-center"'
+    elif opt1==3:
+         x=' class="text-right"'
+    else:
+        print("Wrong Input\nPlease try again")
+        return "\n"
+    text=input("Now enter the text of the paragraph:")
+    if opt!=1:
+        text="<"+y+">\n\t\t\t\t"+text+"\n\t\t\t</"+y+">"
+    z="\n\t\t<p"+x+">\n\t\t\t"+text+"\n\t\t</p>\n"
+    print("All done\n")
+    return z
+
+#generates code for headings
+def heading():
     print("""How big you want the text to be with 'h1' being biggest to 'h6' being the smallest
 h1,h2,h3,h4,h5,h6""")
     y=input("Select an option:")
@@ -590,7 +638,7 @@ def start():
 #generates code for a table written in html by getting input from the user
 def table(td,tr):
     y="""
-\t\t<table class="table table-hover">
+\t\t<table class="table table-bordered">
 \t\t\t<tr>"""
     for x in range(0,b):
         z=input("Enter heading for column number "+str(x+1)+":" )
@@ -615,7 +663,7 @@ def table(td,tr):
 
 #A simple menu function for enabling the user to choose the feature they want to use
 def menu():
-    print("What do you want to do first:\n1) Generate a table \n2) Generate a paragraph \n3) Generate a navigation menu\n4) Add an Image\n5) Add an Footer\n6)Save the document\n7)Exit")
+    print("What do you want to do first:\n1) Generate a table \n2) Generate a heading \n3) Generate a navigation menu\n4) Add an Image\n5) Add an Footer \n6) Add a paragraph\n7) Save the document\n8) Exit")
     y=input("Please Choose your option:")
     y=str(y)
     return y
@@ -687,7 +735,7 @@ while True:
         Final.append(y)        
         print("\nDone\n")
     elif a=="2":
-        y=paragraph()
+        y=heading()
         Final.append(y)      
         print("\nDone\n")
     elif a=="3":
@@ -703,6 +751,9 @@ while True:
         print("\nDone\n")
         footer_exists=True
     elif a=="6":
+        y=paragraph()
+        Final.append(y) 
+    elif a=="7":
         #Extremely poorly written code i will revise it once i get to it
         #i will rewrite most of this code and place it in a function
         x=end()
@@ -779,7 +830,7 @@ while True:
         Z.close()
         space_corrector("index")
         print("""------------------------------------------\nDone saving the document\n------------------------------------------""")
-    elif a=="7":
+    elif a=="8":
         break
     else:
         print("Wrong Input\n")
