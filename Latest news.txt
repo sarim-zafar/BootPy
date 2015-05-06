@@ -1,4 +1,7 @@
 [LATEST]
+
+Fixed a few small bugs
+
 Updated comments in the program appropriatly
 
 Added transparent  scrolling nav now onto fixing/finding bugs then move onto editing :D

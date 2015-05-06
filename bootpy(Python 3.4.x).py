@@ -4,15 +4,15 @@
 
 #removes extra spaces in between html code
 def space_corrector(file):
-    temp=[]
+    tempos=[]
     try:
         final_file= open(file+".html","r")
         for elements in final_file:
             if elements!="\n":
-                temp.append(elements)
+                tempos.append(elements)
         final_file.close()
         final_file= open(file+".html","w")
-        for elements in temp:
+        for elements in tempos:
             final_file.write(elements)
         final_file.close()
     except IOError:
@@ -88,6 +88,7 @@ def navigation():
 \t\t<link href="css/transparent_fixed_navbar.css" rel="stylesheet">
 \t</head>
 \t<body>\n"""
+            f=transparent_fixed_navbar(z,logo,pages,f)
         elif type_top==5:
             transparent_scroll=True
             nav="""\t\t<!-- Plugin CSS -->
@@ -219,11 +220,11 @@ you can avoid/fix such issues by adding a logo with appropriate dimension""")
 \t\t\t\t<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 \t\t\t\t\t<ul class="nav navbar-nav navbar-right">"""
     b=str(input("What is the name of first item(This will be your current page): "))
-    f=f+'''\t\t\t\t\t\t<li><a href="index.html" style="color:black">'''+str(b)+'''</a></li>'''
+    f=f+'''\n\t\t\t\t\t\t<li><a href="index.html" style="color:black">'''+str(b)+'''</a></li>'''
     for i in range(1,z):
         b=str(input("Please enter the name of item number "+str(i+1)+" : "))
         pages.append(b)
-        f=f+'''\n\t\t\t\t\t\t<li><a href='''+b+'''.html style="color:black">'''+b+'''</a></li>'''
+        f=f+'''\n\t\t\t\t\t\t<li><a href="'''+b+'''.html" style="color:black">'''+b+'''</a></li>'''
         skeleton(b)
     f=f+"""
 \t\t\t\t\t</ul>
