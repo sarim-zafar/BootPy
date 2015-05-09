@@ -424,7 +424,7 @@ def pills_nav(z,pages,logo):
 #limited to one style and a limited(only 6 at the time of writing) sites
 #that you can link it to
 def footer():
-    k="""\n\t\t<footer>
+    k="""\n\t\t<footer  class="footer">
 \t\t\t<div class="container">
 \t\t\t\t<div class="row">
 \t\t\t\t\t<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
@@ -626,9 +626,14 @@ def start():
 \t\t<!-- Latest compiled and minified CSS -->
 \t\t<link rel="stylesheet" href="css/bootstrap.min.css">\n"""
     if footer_exists==True or transparent_scroll==True:
-        c=c+'\n\t\t<!-- Footer CSS -->\n\t\t<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">\n'+nav
+        if footer_exists==True:
+            if transparent_scroll==True:
+                c=c+'\n\t\t<!-- Footer CSS -->\n\t\t<link href="css/sticky-footer(Scroll).css" rel="stylesheet">\n'
+            else:
+                c=c+'\n\t\t<!-- Footer CSS -->\n\t\t<link href="css/sticky-footer.css" rel="stylesheet">\n'
         if transparent_scroll==False:
-            c='\n\t\t<!-- Optional theme -->\n\t\t<link rel="stylesheet" href="css/bootstrap-theme.min.css">'+c   
+            c=c+'\n\t\t<!-- Optional theme -->\n\t\t<link rel="stylesheet" href="css/bootstrap-theme.min.css">\n'
+        c=c+'\n\t\t<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">\n'+nav
     else:
         c=c+'\n\t\t<!-- Optional theme -->\n\t\t<link rel="stylesheet" href="css/bootstrap-theme.min.css">\n'
         c=c+nav
@@ -757,6 +762,14 @@ while True:
     elif a=="7":
         #Extremely poorly written code i will revise it once i get to it
         #i will rewrite most of this code and place it in a function
+        print("\nWarning following option is highly experimental use it at your own discretion\n(Enter 2 if you want to keep things normal)")
+        opt=input("Do you want to write this data to any other page except(If not then it will be wirtten to index.html file)?\n1)Yes\n2)No\nPlease Choose your option:")
+        if opt=="1":
+            file1=str(input("Enter the name of the page you want to save to without its extention: "))
+        elif opt=="2":
+            file1="index"
+        else:
+            file1="index"
         x=end()
         c=start()
         try:
@@ -768,11 +781,11 @@ while True:
         except IndexError:
             pass
         w=0
-        Z= open("index.html","w")
+        Z= open(file1+".html","w")
         Z.write(c)
         if scroll_nav==True or transparent_scroll==True:
             i=f.split("</h1>")
-            Z.write(i[0]+"</h1>")
+            Z.write(i[0]+"</h1>\n")
             for n in Final:
                 emp=n.split("\n")
                 for xz in emp:
@@ -787,7 +800,6 @@ while True:
                     if(m<len(i)-1):
                         Z.write("</h1>")
                 w=w+1
-            Z.write(foot)
         else:
             f=f.strip()
             Z.write(f)  
@@ -806,6 +818,7 @@ while True:
             if sidebar_nav_exists==True:
                 if footer_exists==True:
                     emp=foot.split("\n")
+                    Z.write("\n")
                     for xz in emp:
                         if xz!="":                  
                             xz="\t"+xz
@@ -827,6 +840,8 @@ while True:
                     Z.write(foot)
             if sidebar_nav_exists==True:
                 Z.write("\n\t\t</div>\n")
+        if scroll_nav==True or transparent_scroll==True:
+            Z.write(foot)
         Z.write(x)
         Z.close()
         space_corrector("index")
