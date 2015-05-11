@@ -2,6 +2,10 @@
 #but i plan on assigning them meaningfull names regarding to their purpose.Description of anything i deem neccessary is written below it if you still have an
 #issue please report/contact me
 
+#Converts uppercase letter to lower case
+def converter(a):
+    return a.lower()
+
 #removes extra spaces in between html code
 def space_corrector(file):
     tempos=[]
@@ -30,6 +34,8 @@ def navigation():
     global scroll_nav
     scroll_nav=False
     global nav
+    global fixed_to_bottom
+    fixed_to_bottom=False
     nav=""
     pages=[]
     temp=""
@@ -37,59 +43,74 @@ def navigation():
     #This asks the user how many items does he/she require
     #in most cases it will create pages with those names and copy
     #the same nav bar code to them
-    z=input("How many items do you want in your menu: ")
-    z=int(z)
+    z=int(input("How many items do you want in your menu: "))
     f=""
     while True:
         
         #Asks if the user would like to add a logo to the navigation bar alongside the name of the website works pretty neat
         #but only if the dimensions of the logo added a re appropriate it will mess up the body of nav bar if you add logo
         #with big dimensions
-        logo=input("Do you want to add a logo to the navigation bar?\n1)Yes\n2)No\nPlease Choose your option:")
-        if(logo=="1" or logo=="2"):
+        logo=converter(str(input("Do you want to add a logo to the navigation bar?\n1)Yes\n2)No\n--------------------\nPlease Choose your option:")))
+        if(logo=="1" or logo=="2" or logo=="yes" or logo=="no"):
             break
         print("Wrong Input")
     while  True:
-        type_nav=input("""Please classify the type of Nav-bar that you want from the following:
-1)Pils(Will look like buttons)\n2)Sticky(Fixed to top)\n3)Sidebar\nPlease Choose your option:""")
-        if (type_nav=="1" or type_nav=="2" or type_nav=="3"):
+        type_nav=converter(str(input("""Please classify the type of Nav-bar that you want from the following:
+1)Pills
+2)Sticky
+3)Sidebar
+4)Static
+--------------------
+Please Choose your option:""")))
+        if (type_nav=="1" or type_nav=="2" or type_nav=="3" or type_nav=="4" or type_nav=="pills" or type_nav=="sticky" or type_nav=="sidebar" or type_nav=="static"):
             break
         print("Wrong Input")
-    if type_nav=="1":
+    if type_nav=="1" or type_nav=="pills" :
         f=pills_nav(z,pages,logo)
         
-    elif type_nav=="2":
+    elif type_nav=="2" or type_nav=="sticky":
         while True:
-            type_top=input("What kind of top nav bar do you want?\n1)Fixed\n2)Static\n3)Scrolling nav\n4)Fixed(Transparent)\n5)Scrolling nav(Transparent)\nPlease Choose your option:")
-            type_top=int(type_top)
-            if (type_top>=1 and type_top<=5 ):
+            type_top=converter(str(input("""What kind of top nav bar do you want?
+1)Fixed
+2)Fixed to bottom
+3)Scrolling nav
+4)Fixed(Transparent)
+5)Scrolling nav(Transparent)
+--------------------
+Please Choose your option:""")))
+            if (type_top=="1" or type_top=="2" or type_top=="3" or type_top=="4" or type_top=="5" or type_top=="fixed" or type_top=="fixed to bottom" or type_top=="scrolling nav" or type_top=="fixed(transparent)"  or type_top=="scrolling nav(transparent)" ):
                 break
             print("Wrong Input")
-        if type_top==1:
+            
+        if type_top=="1" or type_top=="fixed":
             nav="""\t\t<link rel="stylesheet" href="css/navbar-fixed-top.css">
 \t</head>
 \t<body>\n"""
             f=fixed_nav(z,logo,pages,f)
-        elif type_top==2:
-            nav="""\t\t<link rel="stylesheet" href="css/navbar-static-top.css">
+            
+        elif type_top=="2" or type_top=="fixed to bottom":
+            fixed_to_bottom=True
+            nav="""\t\t<link rel="stylesheet" href="css/navbar-fixed-top.css">
 \t</head>
 \t<body>\n"""
-            f=Static_nav(z,logo,pages,f)
-        elif type_top==3:
+            f=fixed_to_bottom_nav(z,logo,pages,f)
+        elif type_top=="3" or type_top=="scrolling nav":
             scroll_nav=True
             nav="""\t\t<!-- Custom CSS -->
 \t\t<link href="css/scrolling-nav.css" rel="stylesheet">
 \t</head>
 \t<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">\n"""
             f=Scrolling_nav(z,logo,f)
-        elif type_top==4:
+            
+        elif type_top=="4" or type_top=="fixed(transparent)":
             transparent_fixed=True
             nav="""\t\t<!--Custom CSS -->   
 \t\t<link href="css/transparent_fixed_navbar.css" rel="stylesheet">
 \t</head>
 \t<body>\n"""
             f=transparent_fixed_navbar(z,logo,pages,f)
-        elif type_top==5:
+            
+        elif type_top=="5" or type_top=="scrolling nav(transparent)":
             transparent_scroll=True
             nav="""\t\t<!-- Plugin CSS -->
 \t\t<link rel="stylesheet" href="css/animate.min.css" type="text/css">
@@ -98,15 +119,22 @@ def navigation():
 \t</head>
 \t<body id="page-top">\n"""
             f=transparent_scroll_navbar(z,logo,f)
-    elif type_nav=="3":
+            
+    elif type_nav=="3" or type_nav=="sidebar":
         sidebar_nav_exists=True
         nav="""\t\t<!--Custom CSS -->
 \t\t<link href="css/simple-sidebar.css" rel="stylesheet">
 \t</head>
 \t<body>\n"""
         f=sidebar_nav(z,logo,pages,f)
+    elif type_nav=="4" or type_nav=="static":
+        nav="""\t\t<link rel="stylesheet" href="css/navbar-static-top.css">
+\t</head>
+\t<body>\n"""
+        f=Static_nav(z,logo,pages,f)
     else:
         print("Wrong input")
+        return "\n"
         
     #This part adds the same nav bar for the other pages that user as well
     if (scroll_nav==False and transparent_scroll==False):
@@ -151,11 +179,11 @@ def transparent_scroll_navbar(z,logo,f):
 \t\t\t\t\t\t<span class="icon-bar"></span>
 \t\t\t\t\t</button>
 """
-    if logo=="1":            
-        logo1=input("Enter the name of the image with extension(e.g image.jpg): ")
+    if (logo=="1" or logo=="yes"):
+        logo1=str(input("Enter the name of the image with extension in the following format(e.g [image name].[extension i.e jpg]): "))
         f=f+'\n\t\t\t\t\t\t<a href="index.html"><img src="images/'+logo1+'" alt=""></a>\n'
-        print("Great!!! all done now copy the image into the 'images' folder")
-        print("""Warning by adding a logo to the nav-bar you might end up make it look messy
+        print("""Great!!! all done now copy the image into the 'images' folder
+Warning by adding a logo to the nav-bar you might end up make it look messy
 you can avoid/fix such issues by adding a logo with appropriate dimension""")
     f=f+"""\t\t\t\t\t<a class="navbar-brand page-scroll" href="#page-top" style="color:black">"""+Name+"""</a>
 \t\t\t\t</div>
@@ -163,7 +191,7 @@ you can avoid/fix such issues by adding a logo with appropriate dimension""")
 \t\t\t\t<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 \t\t\t\t\t<ul class="nav navbar-nav navbar-right">"""
     g=""
-    print("----------------Important message----------------\nPlease note that though n portions will be created only n-1 will have tabs and the first portion will become your default or main page and you can access it by clicking on the site name\n----------------Important message----------------")
+    print("----------------Important message----------------\nPlease note that though n portions will be created but only n-1 will be created tabs and the first one will become your default or main page and you can access it by clicking on the site name\n----------------Important message----------------")
     if z is not 1:
         g=""
         for i in range(0,z):
@@ -207,11 +235,11 @@ def transparent_fixed_navbar(z,logo,pages,f):
 \t\t\t\t\t\t<span class="icon-bar"></span>
 \t\t\t\t\t\t<span class="icon-bar"></span>
 \t\t\t\t\t</button>"""
-    if logo=="1":            
-        logo1=input("Enter the name of the image with extension(e.g image.jpg): ")
+    if (logo=="1" or logo=="yes"):
+        logo1=str(input("Enter the name of the image with extension(e.g [image name].[extension i.e jpg]): "))
         f=f+'\n\t\t\t\t\t<a href="index.html"><img src="images/'+logo1+'" alt=""></a>\n'
-        print("Great!!! all done now copy the image into the 'images' folder")
-        print("""Warning by adding a logo to the nav-bar you might end up make it look messy
+        print("""Great!!! all done now copy the image into the 'images' folder
+Warning by adding a logo to the nav-bar you might end up make it look messy
 you can avoid/fix such issues by adding a logo with appropriate dimension""")
     else:
         f=f+"\n"
@@ -219,7 +247,7 @@ you can avoid/fix such issues by adding a logo with appropriate dimension""")
 \t\t\t\t</div>
 \t\t\t\t<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 \t\t\t\t\t<ul class="nav navbar-nav navbar-right">"""
-    b=str(input("What is the name of first item(This will be your current page): "))
+    b=str(input("Enter the name of first item(This will be your current page): "))
     f=f+'''\n\t\t\t\t\t\t<li><a href="index.html" style="color:black">'''+str(b)+'''</a></li>'''
     for i in range(1,z):
         b=str(input("Please enter the name of item number "+str(i+1)+" : "))
@@ -240,16 +268,16 @@ def sidebar_nav(z,logo,pages,f):
 \t\t<div id="wrapper">
 \t\t\t<div id="sidebar-wrapper">
 \t\t\t\t<ul class="sidebar-nav">"""
-    if logo=="1":            
-        logo1=input("Enter the name of the image with extension(e.g image.jpg): ")
+    if (logo=="1" or logo=="yes"):
+        logo1=str(input("Enter the name of the image with extension(e.g [image name].[extension i.e jpg]): "))
         f=f+'\n\t\t\t\t\t<a href="index.html"><img src="images/'+logo1+'" alt=""></a>\n'
-        print("Great!!! all done now copy the image into the 'images' folder")
-        print("""Warning by adding a logo to the nav-bar you might end up make it look messy
+        print("""Great!!! all done now copy the image into the 'images' folder
+Warning by adding a logo to the nav-bar you might end up make it look messy
 you can avoid/fix such issues by adding a logo with appropriate dimension""") 
     else:
         f=f+"\n"
     f=f+"""\t\t\t\t\t<li class="sidebar-brand"><a href="index.html">"""+Name+"""</a></li>\n"""
-    b=str(input("What is the name of first item(This will be your current page): "))
+    b=str(input("Enter the name of first item(This will be your current page): "))
     f=f+'''\t\t\t\t\t<li><a href="index.html">'''+b+'''</a></li>\n'''
     for i in range(1,z):
         b=str(input("Please enter the name of item number "+str(i+1)+" : "))
@@ -272,10 +300,12 @@ def Scrolling_nav(z,logo,f):
 \t\t<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 \t\t\t<div class="container">
 \t\t\t\t<div class="navbar-header page-scroll">"""
-    if logo=="1":
-        logo1=input("Enter the name of the image with extension(e.g image.jpg): ")
+    if (logo=="1" or logo=="Yyes"):
+        logo1=str(input("Enter the name of the image with extension(e.g [image name].[extension i.e jpg]): "))
         f=f+'\n\t\t\t\t\t<a href="index.html"><img src="images/'+logo1+'" alt=""></a>'
-        print("Great!!! all done now copy the image into the 'images' folder")            
+        print("""Great!!! all done now copy the image into the 'images' folder
+Warning by adding a logo to the nav-bar you might end up make it look messy
+you can avoid/fix such issues by adding a logo with appropriate dimension""") 
     f=f+"""
 \t\t\t\t\t<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
 \t\t\t\t\t\t<span class="sr-only">Toggle navigation</span>
@@ -334,16 +364,18 @@ def Static_nav(z,logo,pages,f):
 \t\t\t\t\t\t<span class="icon-bar"></span>
 \t\t\t\t\t\t<span class="icon-bar"></span>
 \t\t\t\t\t</button>"""
-    if logo=="1":
-        logo1=input("Enter the name of the image with extension(e.g image.jpg): ")
+    if (logo=="1" or logo=="yes"):
+        logo1=str(input("Enter the name of the image with extension(e.g [image name].[extension i.e jpg]): "))
         f=f+'\n\t\t\t\t\t<a href="index.html"><img src="images/'+logo1+'" alt=""></a>'
-        print("Great!!! all done now copy the image into the 'images' folder")
+        print("""Great!!! all done now copy the image into the 'images' folder
+Warning by adding a logo to the nav-bar you might end up make it look messy
+you can avoid/fix such issues by adding a logo with appropriate dimension""") 
     f=f+"""
 \t\t\t\t\t<a class="navbar-brand" href="index.html">"""+Name+"""</a>
 \t\t\t\t</div>
 \t\t\t\t<div class="navbar-collapse collapse">
 \t\t\t\t\t<ul class="nav navbar-nav">"""
-    b=str(input("What is the name of first item(This will be your current page): "))
+    b=str(input("Enter the name of first item(This will be your current page): "))
     f=f+'''
 \t\t\t\t\t\t<li class="active"><a href="index.html">'''+b+'''</a></li>'''
     if z is not 1:
@@ -372,15 +404,17 @@ def fixed_nav(z,logo,pages,f):
 \t\t\t\t\t\t<span class="icon-bar"></span>
 \t\t\t\t\t\t<span class="icon-bar"></span>
 \t\t\t\t\t</button>"""
-    if logo=="1":
-        logo1=input("Enter the name of the image with extension(e.g image.jpg): ")
+    if (logo=="1" or logo=="yes"):
+        logo1=str(input("Enter the name of the image with extension(e.g [image name].[extension i.e jpg]): "))
         f=f+'\n\t\t\t\t\t<a href="index.html"><img src="images/'+logo1+'" alt=""></a>'
-        print("Great!!! all done now copy the image into the 'images' folder")
+        print("""Great!!! all done now copy the image into the 'images' folder
+Warning by adding a logo to the nav-bar you might end up make it look messy
+you can avoid/fix such issues by adding a logo with appropriate dimension""") 
     f=f+"""\n\t\t\t\t\t<a class="navbar-brand" href="index.html">"""+Name+"""</a>
 \t\t\t\t</div>
 \t\t\t\t<div class="navbar-collapse collapse">
 \t\t\t\t\t<ul class="nav navbar-nav">"""
-    b=str(input("What is the name of first item(This will be your current page): "))
+    b=str(input("Enter the name of first item(This will be your current page): "))
     f=f+'''\n\t\t\t\t\t\t<li class="active"><a href="index.html">'''+b+'''</a></li>'''
     if z is not 1:
         for i in range(1,z):
@@ -394,21 +428,58 @@ def fixed_nav(z,logo,pages,f):
 \t\t\t</div>
 \t\t</div>"""
         return f
+
+def fixed_to_bottom_nav(z,logo,pages,f):
+    f=f+"""\t\t<!-- Navigation -->
+\t\t<nav class="navbar navbar-inverse navbar-fixed-bottom" role="navigation">
+\t\t\t<div class="container">
+\t\t\t\t<div class="navbar-header">
+\t\t\t\t\t<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+\t\t\t\t\t\t<span class="sr-only">Toggle navigation</span>
+\t\t\t\t\t\t<span class="icon-bar"></span>
+\t\t\t\t\t\t<span class="icon-bar"></span>
+\t\t\t\t\t\t<span class="icon-bar"></span>
+\t\t\t\t\t</button>"""
+    if (logo=="1" or logo=="yes"):
+        logo1=str(input("Enter the name of the image with extension(e.g [image name].[extension i.e jpg]): "))
+        f=f+'\n\t\t\t\t\t<a href="index.html"><img src="images/'+logo1+'" alt=""></a>'
+        print("""Great!!! all done now copy the image into the 'images' folder
+Warning by adding a logo to the nav-bar you might end up make it look messy
+you can avoid/fix such issues by adding a logo with appropriate dimension""") 
+    f=f+"""\n\t\t\t\t\t<a class="navbar-brand" href="index.html">"""+Name+"""</a>
+\t\t\t\t</div>
+\t\t\t\t<div class="navbar-collapse collapse">
+\t\t\t\t\t<ul class="nav navbar-nav">"""
+    b=str(input("Enter the name of first item(This will be your current page): "))
+    f=f+'''\n\t\t\t\t\t\t<li class="active"><a href="index.html">'''+b+'''</a></li>'''
+    if z is not 1:
+        for i in range(1,z):
+            b=str(input("Please enter the name of item number "+str(i+1)+" : "))
+            pages.append(b)
+            f=f+'''\n\t\t\t\t\t\t<li><a href="'''+b+'''.html">'''+b+'''</a></li>'''
+            skeleton(b)
+        f=f+"""
+\t\t\t\t\t</ul>
+\t\t\t\t</div>
+\t\t\t</div>
+\t\t</nav>"""
+        return f
     
 #this is one of the sub modules for the navigation function it simply generates the code for its relevant nav bar 
 def pills_nav(z,pages,logo):
-    y=input("What kind of menu do you want:\n1) Horizontal\n2) Vertical\nPlease Choose your option:")
-    y=str(y)
-    if y=="1":
+    y=converter(str(input("What kind of menu do you want:\n1) Horizontal\n2) Vertical\n--------------------\nPlease Choose your option:")))
+    if y=="1" or y=="horizontal":
         x=' nav class="nav nav-pills"'
-    elif y=="2":
+    elif y=="2" or  y=="Vertical":
         x=' nav class="nav nav-pills nav-stacked"'
-    if logo=="1":
-        logo1=input("Enter the name of the image with extension(e.g image.jpg): ")
-        print("Great!!! all done now copy the image into the 'images' folder")
-    b=str(input("What is the name of first item(This will be your current page): "))
+    if (logo=="1" or logo=="yes"):
+        logo1=input("Enter the name of the image with extension(e.g [image name].[extension i.e jpg]): ")
+        print("""Great!!! all done now copy the image into the 'images' folder
+Warning by adding a logo to the nav-bar you might end up make it look messy
+you can avoid/fix such issues by adding a logo with appropriate dimension""") 
+    b=str(input("Enter the name of first item(This will be your current page): "))
     f='\t</head>\n\t<body>\n\t\t<ul '+str(x)+'>\n'
-    if logo=="1":
+    if logo=="1" or logo=="yes":
         f=f+'\t\t\t<a href="index.html"><img src="images/'+logo1+'" alt=""></a>'
     f=f+'\n\t\t\t<li class="active"><a href="index.html">'+b+'</a></li>'
     if z is not 1:
@@ -430,9 +501,17 @@ def footer():
 \t\t\t\t\t<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 \t\t\t\t\t\t<ul class="list-inline text-center">"""
     while True:
-        a=int(input("\nPlease Choose from the following:\n1)Link to Twitter\n2)Link to Facebook\n3)Link to github\n4)Link to google plus\n5)Link to yahoo\n6)Link to reddit\nPlease Choose your option:"))
-        x=input("\nEnter the link you want to embed in regard to the chosen option:")
-        if a==1:
+        a=converter(str(input("""\nPlease Choose from the following:
+1)Link to Twitter
+2)Link to Facebook
+3)Link to github
+4)Link to google plus
+5)Link to yahoo
+6)Link to reddit
+--------------------
+Please Choose your option:""")))
+        x=str(input("\nEnter the link you want to embed in regard to the chosen option:"))
+        if a=="1" or a=="link to twitter":
             k=k+'''\n\t\t\t\t\t\t\t<li>
 \t\t\t\t\t\t\t\t<a href='''+x+'''>
 \t\t\t\t\t\t\t\t\t<span class="fa-stack fa-lg">
@@ -441,7 +520,7 @@ def footer():
 \t\t\t\t\t\t\t\t\t</span>
 \t\t\t\t\t\t\t\t</a>
 \t\t\t\t\t\t\t</li>'''        
-        if a==2:
+        if a=="2" or a=="link to facebook":
             k=k+'''\n\t\t\t\t\t\t\t<li>
 \t\t\t\t\t\t\t\t<a href='''+x+'''>
 \t\t\t\t\t\t\t\t\t<span class="fa-stack fa-lg">
@@ -450,7 +529,7 @@ def footer():
 \t\t\t\t\t\t\t\t\t</span>
 \t\t\t\t\t\t\t\t</a>
 \t\t\t\t\t\t\t</li>'''
-        if a==3:
+        if a=="3" or a=="link to github":
             k=k+'''\n\t\t\t\t\t\t\t<li>
 \t\t\t\t\t\t\t\t<a href='''+x+'''>
 \t\t\t\t\t\t\t\t\t<span class="fa-stack fa-lg">
@@ -459,7 +538,7 @@ def footer():
 \t\t\t\t\t\t\t\t\t</span>
 \t\t\t\t\t\t\t\t</a>
 \t\t\t\t\t\t\t</li>'''
-        if a==4:
+        if a=="4" or a=="link to google plus":
             k=k+'''\n\t\t\t\t\t\t\t<li>
 \t\t\t\t\t\t\t\t<a href='''+x+'''>
 \t\t\t\t\t\t\t\t\t<span class="fa-stack fa-lg">
@@ -468,7 +547,7 @@ def footer():
 \t\t\t\t\t\t\t\t\t</span>
 \t\t\t\t\t\t\t\t</a>
 \t\t\t\t\t\t\t</li>'''
-        if a==5:
+        if a=="5" or a=="link to yahoo":
              k=k+'''\n\t\t\t\t\t\t\t<li>
 \t\t\t\t\t\t\t\t<a href='''+x+'''>
 \t\t\t\t\t\t\t\t\t<span class="fa-stack fa-lg">
@@ -477,7 +556,7 @@ def footer():
 \t\t\t\t\t\t\t\t\t</span>
 \t\t\t\t\t\t\t\t</a>
 \t\t\t\t\t\t\t</li>'''
-        if a==6:
+        if a=="6" or a=="link to reddit":
             k=k+'''\n\t\t\t\t\t\t\t<li>
 \t\t\t\t\t\t\t\t<a href='''+x+'''>
 \t\t\t\t\t\t\t\t\t<span class="fa-stack fa-lg">
@@ -486,8 +565,8 @@ def footer():
 \t\t\t\t\t\t\t\t\t</span>
 \t\t\t\t\t\t\t\t</a>
 \t\t\t\t\t\t\t</li>'''
-        b=int(input("Do you want to add more links:\n1)Yes\n2)No\nPlease Choose your option:"))
-        if b==2:
+        b=converter(str(input("Do you want to add more links:\n1)Yes\n2)No\n--------------------\nPlease Choose your option:")))
+        if b=="2" or b=="no":
             k=k+"""\n\t\t\t\t\t\t\t<p class="copyright text-muted">Copyright &copy; """+Name+""" 2015</p>
 \t\t\t\t\t\t</ul>
 \t\t\t\t\t</div>
@@ -501,16 +580,16 @@ def footer():
 
 # generates code for image tag and returns all of the code in the variable returned
 def image():
-    b=input("Enter the name of the image with extension(e.g image.jpg): ")
+    b=input("Enter the name of the image with extension(e.g [image name].[extension i.e jpg]): ")
     while True:
-        x=int(input("Choose how you want to align the image:\n1)Center\n2)Left\n3)Right\nPlease Choose your option: "))
-        if(x==1):
+        x=converter(str(input("Choose how you want to align the image:\n1)Center\n2)Left\n3)Right\n--------------------\nPlease Choose your option: ")))
+        if(x=="1" or x=="center"):
             z='\t\t<img src="images/'+b+'" class="img-responsive center-block">\n'
             break
-        elif(x==2):
+        elif(x=="2" or x=="left"):
             z='\t\t<img src="images/'+b+'" class="img-responsive align="left">\n'
             break
-        elif(x==3):
+        elif(x=="3" or x=="right"):
             z='\t\t<img src="images/'+b+'" class="img-responsive align="right">\n'
             break
         else:
@@ -520,47 +599,47 @@ def image():
 
 #generates a custom paragraph
 def paragraph():
-    opt=int(input("Do you want to add a heading to the paragrah\n1)Yes\n2)No\nSelect an option:"))
+    opt=converter(str(input("Do you want to add a heading to the paragrah\n1)Yes\n2)No\nSelect an option:")))
     h=""
-    if opt==1:
+    if opt=="1" or opt=="yes":
         h=heading()
         Final.append(" \n"+h)
         print("All done")
-    elif opt==2:
+    elif opt=="2" or opt=="no":
         pass
     else:
         print("Wrong Input\nPlease try again")
         return "\n" 
-    opt=int(input("""Please select the format in which you want to write the paragraph:
+    opt=converter(str(input("""Please select the format in which you want to write the paragraph:
 1)Normal
 2)Italics
 3)Bold
-Select an option:"""))
-    if opt==1:
+Select an option:""")))
+    if opt=="1" or opt=="normal":
         y="p"
-    elif opt==2:
+    elif opt=="2" or opt=="italics":
         y="em"
-    elif opt==3:
+    elif opt=="3" or opt=="bold":
          y="strong"
     else:
         print("Wrong Input\nPlease try again")
         return "\n" 
-    opt1=int(input("""Please select the Alignment of the in which you want to write the paragraph:
+    opt1=converter(str(input("""Please select the Alignment of the in which you want to write the paragraph:
 1)Left
 2)Center
 3)Right
-Select an option:"""))
-    if opt1==1:
+Select an option:""")))
+    if opt1=="1" or opt1=="left" :
         x=' class="text-left"'
-    elif opt1==2:
+    elif opt1=="2" or opt1=="center" :
         x=' class="text-center"'
-    elif opt1==3:
+    elif opt1=="3" or opt1=="right" :
          x=' class="text-right"'
     else:
         print("Wrong Input\nPlease try again")
         return "\n"
-    text=input("Now enter the text of the paragraph:")
-    if opt!=1:
+    text=str(input("Now enter the text of the paragraph:"))
+    if opt!="1" or opt!="normal":
         text="<"+y+">\n\t\t\t\t"+text+"\n\t\t\t</"+y+">"
     z="\n\t\t<p"+x+">\n\t\t\t"+text+"\n\t\t</p>\n"
     print("All done\n")
@@ -569,9 +648,24 @@ Select an option:"""))
 #generates code for headings
 def heading():
     print("""How big you want the text to be with 'h1' being biggest to 'h6' being the smallest
-h1,h2,h3,h4,h5,h6""")
-    y=input("Select an option:")
-    x=input("Okay great now enter the text:\n")
+1) h1\n2) h2\n3) h3\n4) h4\n5) h5\n6) h6""")
+    x=converter(str(input("Select an option:")))
+    if (x=="1" or x=="h1"):
+        y="h1"
+    elif (x=="2" or x=="h2"):
+        y="h2"
+    elif (x=="3" or x=="h3"):
+        y="h3"
+    elif (x=="4" or x=="h4"):
+        y="h4"
+    elif (x=="5" or x=="h5"):
+        y="h5"
+    elif (x=="6" or x=="h6"):
+        y="h6"
+    else:
+        print("Wrong input please try again")
+        return
+    x=str(input("Okay great now enter the text:\n"))
     z="\n\t\t<"+y+">"+x+"</"+y+">\n"
     return z
 
@@ -629,6 +723,8 @@ def start():
         if footer_exists==True:
             if transparent_scroll==True:
                 c=c+'\n\t\t<!-- Footer CSS -->\n\t\t<link href="css/sticky-footer(Scroll).css" rel="stylesheet">\n'
+            if fixed_to_bottom==True:
+                c=c+'\n\t\t<!-- Footer CSS -->\n\t\t<link href="css/sticky-footer(Bottom).css" rel="stylesheet">\n'
             else:
                 c=c+'\n\t\t<!-- Footer CSS -->\n\t\t<link href="css/sticky-footer.css" rel="stylesheet">\n'
         if transparent_scroll==False:
@@ -647,7 +743,7 @@ def table(td,tr):
 \t\t<table class="table table-bordered">
 \t\t\t<tr>"""
     for x in range(0,b):
-        z=input("Enter heading for column number "+str(x+1)+":" )
+        z=str(input("Enter heading for column number "+str(x+1)+":" ))
         z="""
 \t\t\t\t<th>"""+z+"""</th>"""
         y=y+z
@@ -659,7 +755,7 @@ def table(td,tr):
         for p in range(0,td):
             y=y+"""
 \t\t\t\t<td>"""
-            y=y+input("Enter value of cell at position ("+str(i)+","+str(p)+") columns: ")
+            y=y+str(input("Enter value of cell at position ("+str(i)+","+str(p)+") columns: "))
             y="""\t"""+y+"""</td>"""
         y=y+"""
 \t\t\t</tr>"""
@@ -669,9 +765,17 @@ def table(td,tr):
 
 #A simple menu function for enabling the user to choose the feature they want to use
 def menu():
-    print("What do you want to do first:\n1) Generate a table \n2) Generate a heading \n3) Generate a navigation menu\n4) Add an Image\n5) Add an Footer \n6) Add a paragraph\n7) Save the document\n8) Exit")
-    y=input("Please Choose your option:")
-    y=str(y)
+    print("--------------------")
+    print("""What do you want to do first:
+1) Generate a table
+2) Generate a heading
+3) Generate a navigation menu
+4) Add an Image
+5) Generate a  Footer
+6) Add a paragraph
+7) Save the document
+8) Exit""")
+    y=converter(str(input("--------------------\nPlease Choose your option:")))
     return y
 
 #creates the file in directory to which all of the data is to be written
@@ -721,11 +825,14 @@ sidebar_nav_exists=False
 #Insure wheather user added a  transparent scroll navigation or not if he did then it will add the script that is neccesary for the working of navigation
 transparent_scroll=False
 
+#Insure wheather user added a  fixed_to_bottom navigation or not if he did then it will add the script that is neccesary for the correct placement of footer if used
+fixed_to_bottom=False
+
 #some other global variables
 nav=""
 f=""
 foot=""
-Name=input("Enter the Name of your site: ")
+Name=str(input("Enter the Name of your site: "))
 title=Name
 
 #iterates until the user specifies if he/she wants to exit the program
@@ -733,40 +840,52 @@ while True:
     
     #prints the main menu of the program
     a=menu()
-    if a=="1":
+    if a=="1" or a=="generate a table":
+        print("--------------------")
         z=[]
         a=int(input("Please enter the number of rows in your table: "))
         b=int(input("Please enter the number of columns in your table: "))
         y=table(a,b)
         Final.append(y)        
-        print("\nDone\n")
-    elif a=="2":
+        print("Done")
+    elif a=="2" or a=="generate a heading":
+        print("--------------------")
         y=heading()
         Final.append(y)      
-        print("\nDone\n")
-    elif a=="3":
+        print("Done")
+    elif a=="3" or a=="generate a navigation menu":
+        print("--------------------")
         f=navigation()
-        print("\nDone\n")
+        print("Done")
         nav_exists=True
-    elif a=="4":
+    elif a=="4" or a=="add an image":
+        print("--------------------")
         y=image()
         Final.append(y)      
-        print("\nDone\n")
-    elif a=="5":
+        print("Done")
+    elif a=="5" or a=="generate a  footer":
+        print("--------------------")
         foot=footer()
-        print("\nDone\n")
+        print("Done")
         footer_exists=True
-    elif a=="6":
+    elif a=="6" or a=="add a paragraph":
+        print("--------------------")
         y=paragraph()
-        Final.append(y) 
-    elif a=="7":
+        Final.append(y)
+        print("Done")
+    elif a=="7" or a=="save the document":
         #Extremely poorly written code i will revise it once i get to it
         #i will rewrite most of this code and place it in a function
-        print("\nWarning following option is highly experimental use it at your own discretion\n(Enter 2 if you want to keep things normal)")
-        opt=input("Do you want to write this data to any other page except(If not then it will be wirtten to index.html file)?\n1)Yes\n2)No\nPlease Choose your option:")
-        if opt=="1":
+        opt=converter(str(input("""--------------------
+Warning following option is highly experimental use it at your own discretion
+(Enter 2 if you want to keep things normal)
+Do you want to write this data to any other page(If not then it will be wirtten to index.html file)?
+1)Yes
+2)No
+--------------------\nPlease Choose your option:""")))
+        if opt=="1" or opt=="yes":
             file1=str(input("Enter the name of the page you want to save to without its extention: "))
-        elif opt=="2":
+        elif opt=="2" or opt=="no":
             file1="index"
         else:
             file1="index"
@@ -844,9 +963,9 @@ while True:
             Z.write(foot)
         Z.write(x)
         Z.close()
-        space_corrector("index")
-        print("""------------------------------------------\nDone saving the document\n------------------------------------------""")
-    elif a=="8":
+        space_corrector(file1)
+        print("--------------------\nDone saving the document")
+    elif a=="8" or a=="exit":
         break
     else:
         print("Wrong Input\n")

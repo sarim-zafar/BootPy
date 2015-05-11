@@ -1,4 +1,14 @@
 [LATEST]
+Added an option to write to files other than index.html now user can mention the name of file they want to write to...(BETA)
+This option works just fine if the user knows how to use it first save to index then create new data and write it
+to the new file 
+
+Added a fixed nav bar which is fixed to the bottom
+
+Fixed the placement of footer(BETA)(Works for all but there might be some issues here and there)
+but it looks better than before
+
+Fixed some other small bugs(alot of hidden bugs...-_-)
 
 Fixed a few small bugs
 
