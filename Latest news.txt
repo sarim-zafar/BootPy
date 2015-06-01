@@ -37,7 +37,10 @@ sessions/executions[Still working on it]
 
 
 I am starting to see the limitation of CLI so while i am working on the code , i ve started looking into GUI
- i havent decided to release it as a webapp like in browser similar to wordpress or proper windows software i will reflect on it in the meanwhile
+i havent decided to release it as a webapp like in browser similar to wordpress or proper windows software i will reflect on it in the meanwhile
+
+there will two version one version will solely for testing new features and will be exactly same as the usualyou will have to the freedom to play around
+the other one will be a blog version
 
 i am currently working on a major release where i will be using a more refined version of this program i am thinking
 of using it as a cms for blogs so from now i will update the program accordingly i will place the current program in legacy
