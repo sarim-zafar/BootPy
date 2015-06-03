@@ -1,7 +1,8 @@
 [LATEST]
-Added an option to write to files other than index.html now user can mention the name of file they want to write to...(BETA)
-This option works just fine if the user knows how to use it first save to index then create new data and write it
-to the new file 
+Removed the write to another file for now i will add it later also added the save edit function into the code
+i think its bug free but i have not tested it with all features but hopefully it is
+i am going to keep it in beta as i will see how it fares over the few commits if its bug free then i will replace the 
+standard release with iit
 
 Added a fixed nav bar which is fixed to the bottom
 
