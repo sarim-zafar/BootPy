@@ -5,6 +5,38 @@
 #used for compression of project file
 import zlib, base64
 
+def creating_pages():
+    global scroll_nav
+    global transparent_scroll
+    global pages
+    global num_pages
+    global footer_exists
+    global foot
+    
+    if (scroll_nav==False and transparent_scroll==False):
+        for h in range(0,((num_pages)-1)):
+            temp3=[]
+            temp=pages[h]
+            temp5=f
+            temp5=temp5.replace('<li class="active">', '<li>');
+            temp5=temp5.replace('<li><a href="'+temp+'.html">'+temp+'</a></li>', '<li class="active"><a href="'+temp+'.html">'+temp+'</a></li>');
+            temp3.append(temp5)
+            temp1=""
+            temp2=""
+            if footer_exists==True:
+                temp1=foot
+            temp3.append(temp1)
+            temp1=end()
+            temp3.append(temp1)
+            temp2=start()
+            temp3.insert(0,temp2)
+            
+            # This will insert code till the head from the start appropriate to the code requested by the user
+            temp4 = open((temp+".html"),"w")
+            for t in temp3:
+                temp4.write(t)
+            temp4.close()
+            space_corrector(temp)
 #used for making project file
 def saving_project(Final,c,foot,x,nav,Name,title,f,proj_name):
 
@@ -168,29 +200,7 @@ def load_project(proj_name):
 
     for i in range(13,(13+(num_pages))):
         pages.append(load[i])
-
-    if (scroll_nav==False and transparent_scroll==False):
-        for h in range(0,((num_pages)-1)):
-            temp3=[]
-            temp=pages[h]
-            temp5=f
-            temp5=temp5.replace('<li class="active">', '<li>');
-            temp5=temp5.replace('<li><a href="'+temp+'.html">'+temp+'</a></li>', '<li class="active"><a href="'+temp+'.html">'+temp+'</a></li>');
-            temp3.append(temp5)
-            temp1=""
-            temp2=""
-            temp1=end()
-            temp3.append(temp1)
-            temp2=start()
-            temp3.insert(0,temp2)
-            
-            # This will insert code till the head from the start appropriate to the code requested by the user
-            temp4 = open((temp+".html"),"w")
-            for t in temp3:
-                temp4.write(t)
-            temp4.close()
-            space_corrector(temp)
-            
+    creating_pages()
     return
 #Converts uppercase letter to lower case
 def converter(a):
@@ -328,27 +338,7 @@ Please Choose your option:""")))
         return "\n"
         
     #This part adds the same nav bar for the other pages that user as well
-    if (scroll_nav==False and transparent_scroll==False):
-        for h in range(0,num_pages-1):
-            temp3=[]
-            temp=pages[h]
-            temp5=f
-            temp5=temp5.replace('<li class="active">', '<li>');
-            temp5=temp5.replace('<li><a href="'+temp+'.html">'+temp+'</a></li>', '<li class="active"><a href="'+temp+'.html">'+temp+'</a></li>');
-            temp3.append(temp5)
-            temp1=""
-            temp2=""
-            temp1=end()
-            temp3.append(temp1)
-            temp2=start()
-            temp3.insert(0,temp2)
-            
-            # This will insert code till the head from the start appropriate to the code requested by the user
-            temp4 = open((temp+".html"),"w")
-            for t in temp3:
-                temp4.write(t)
-            temp4.close()
-            space_corrector(temp)
+    creating_pages()
             
 #It is a module which decides what to write in the head of the document depending upon the choice of the navigation bar if no navigation bar is chosen it will
 #print out a code without including the css file for any navigation bar
@@ -1009,6 +999,7 @@ global title
 global Name
 
 global num_pages
+num_pages=0
 
 #These are some variables that i use to manage all the code during execution of the program , like how to arrange , which to put in start and which in last
 #Insure wheather user added a transparent fixed navigation or not if he did then it will add the script that is neccesary for the working of navigation
@@ -1156,6 +1147,7 @@ while True:
         Z.write(x)
         Z.close()
         space_corrector("index")
+        creating_pages()
         print"--------------------\nDone saving the document"
     elif a=="8" or a=="save the project":
         x=end()
